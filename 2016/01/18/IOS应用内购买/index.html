@@ -1,0 +1,645 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>iOS应用内购买App开发完整流程 | CharlyZhang&#39; Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Charly Zhang">
+    
+
+    
+    <meta name="description" content="看了一些网上教程，基本上是老版本的了。我针对自己遇到的一些问题，结合官方文档把IAP（In-App Purchase）过程梳理了一下。P.S. 官方文档才是王道！
+编码之前应用内购买要和App Store发生交互，这里在正式编写代码前需要做几个工作。
+
+完善账户信息收费App、含应用内购买的App等有付费功能的需要完善这部分信息。
+
+进入iTunes Connect        
+iTunes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS应用内购买App开发完整流程">
+<meta property="og:url" content="http://charlyzhang.github.io/2016/01/18/iOS应用内购买/index.html">
+<meta property="og:site_name" content="CharlyZhang' Blog">
+<meta property="og:description" content="看了一些网上教程，基本上是老版本的了。我针对自己遇到的一些问题，结合官方文档把IAP（In-App Purchase）过程梳理了一下。P.S. 官方文档才是王道！
+编码之前应用内购买要和App Store发生交互，这里在正式编写代码前需要做几个工作。
+
+完善账户信息收费App、含应用内购买的App等有付费功能的需要完善这部分信息。
+
+进入iTunes Connect        
+iTunes">
+<meta property="og:image" content="http://charlyzhang.github.io/../img/20160118-协议税务银行业务.png">
+<meta property="og:image" content="http://charlyzhang.github.io/../img/20160118-我的app.png">
+<meta property="og:image" content="http://charlyzhang.github.io/../img/20160118-新建app.png">
+<meta property="og:image" content="http://charlyzhang.github.io/../img/20160118-新建商品.png">
+<meta property="og:image" content="http://charlyzhang.github.io/../img/20160118-项目类型.png">
+<meta property="og:image" content="http://charlyzhang.github.io/../img/20160118-新建商品2.png">
+<meta property="og:image" content="http://charlyzhang.github.io/../img/20160118-新建商品3.png">
+<meta property="og:image" content="http://charlyzhang.github.io/../img/20160118-新建商品4.png">
+<meta property="og:image" content="http://charlyzhang.github.io/../img/20160118-准备提交.png">
+<meta property="og:image" content="http://charlyzhang.github.io/../img/20160118-用户和职能.png">
+<meta property="og:image" content="http://charlyzhang.github.io/../img/20160118-iap概览.png">
+<meta property="og:image" content="http://charlyzhang.github.io/../img/20160118-demo修改.png">
+<meta property="og:updated_time" content="2016-01-23T03:59:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS应用内购买App开发完整流程">
+<meta name="twitter:description" content="看了一些网上教程，基本上是老版本的了。我针对自己遇到的一些问题，结合官方文档把IAP（In-App Purchase）过程梳理了一下。P.S. 官方文档才是王道！
+编码之前应用内购买要和App Store发生交互，这里在正式编写代码前需要做几个工作。
+
+完善账户信息收费App、含应用内购买的App等有付费功能的需要完善这部分信息。
+
+进入iTunes Connect        
+iTunes">
+
+    
+    <link rel="alternative" href="/atom.xml" title="CharlyZhang&#39; Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="CharlyZhang&#39; Blog" title="CharlyZhang&#39; Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="CharlyZhang&#39; Blog">CharlyZhang&#39; Blog</a></h1>
+				<h2 class="blog-motto">每个人的一生，都是一次远行</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:charlyzhang.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/01/18/iOS应用内购买/" title="iOS应用内购买App开发完整流程" itemprop="url">iOS应用内购买App开发完整流程</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Charly Zhang" target="_blank" itemprop="author">Charly Zhang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-18T08:43:54.000Z" itemprop="datePublished"> 發表於 2016-01-18</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#编码之前"><span class="toc-number">1.</span> <span class="toc-text">编码之前</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#完善账户信息"><span class="toc-number">1.1.</span> <span class="toc-text">完善账户信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建App"><span class="toc-number">1.2.</span> <span class="toc-text">创建App</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建商品"><span class="toc-number">1.3.</span> <span class="toc-text">创建商品</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#申请测试账号"><span class="toc-number">1.4.</span> <span class="toc-text">申请测试账号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试账号的使用"><span class="toc-number">1.5.</span> <span class="toc-text">测试账号的使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码部分"><span class="toc-number">2.</span> <span class="toc-text">代码部分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#购买流程"><span class="toc-number">2.1.</span> <span class="toc-text">购买流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#获取商品信息"><span class="toc-number">2.2.</span> <span class="toc-text">获取商品信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#购买请求"><span class="toc-number">2.3.</span> <span class="toc-text">购买请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#交付商品"><span class="toc-number">2.4.</span> <span class="toc-text">交付商品</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#demo"><span class="toc-number">2.5.</span> <span class="toc-text">demo</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">3.</span> <span class="toc-text">参考</span></a></li></ol>
+		
+		</div>
+		
+		<p>看了一些网上教程，基本上是老版本的了。我针对自己遇到的一些问题，结合官方文档把IAP（In-App Purchase）过程梳理了一下。<br>P.S. <strong>官方文档才是王道！</strong></p>
+<h2 id="编码之前">编码之前</h2><p>应用内购买要和App Store发生交互，这里在正式编写代码前需要做几个工作。</p>
+<ul>
+<li><h3 id="完善账户信息">完善账户信息</h3><p>收费App、含应用内购买的App等有付费功能的需要完善这部分信息。</p>
+<ol>
+<li>进入<a href="itunesconnect.apple.com"><strong>iTunes Connect</strong></a>        <blockquote>
+<p>iTunes Connect是苹果提供的一个平台，主要提供App发布和管理App的，最重要的功能是创建管理项目信息，项目付费产品（道具）管理、付费的测试账号、提交App等等。</p>
+</blockquote>
+</li>
+<li><p>进入<strong>协议、税务和银行业务</strong></p>
+<p> 这一部分具体可以参照这篇<a href="http://www.jianshu.com/p/c7cf65911bc1" target="_blank" rel="external">iOS App提交指南(二)-协议、税务和银行业务</a><br><img src="../img/20160118-协议税务银行业务.png" alt="协议税务银行业务"></p>
+</li>
+</ol>
+</li>
+<li><h3 id="创建App">创建App</h3><ol>
+<li>进入<a href="itunesconnect.apple.com"><strong>iTunes Connect</strong></a></li>
+<li>进入<strong>我的App</strong><br><img src="../img/20160118-我的app.png" alt="进入新建App"></li>
+<li><p>新建App</p>
+<p> 这里说一下，<em>套装ID</em>就是<em>Bundle ID</em>，保证和Xcode项目中的Bundle ID一致。其实不晓得填的地方点击那个小问号就有提示了。（我不知道为嘛要截这么多图，或许会让文章显得亲切点😄）<br><img src="../img/20160118-新建app.png" alt="新建App"><br>对了，新建App时要保证<em>应用内购买</em>的功能时勾选上的。</p>
+</li>
+</ol>
+</li>
+<li><h3 id="创建商品">创建商品</h3><p>  建好支持应用内购买的App后，就可以该App可购买的商品了。</p>
+<ol>
+<li><p>创建App内购买项目</p>
+<p> 依次点击<em>｛创建的App名｝</em> -&gt; <em>功能</em> -&gt; <em>App内购买项目</em> -&gt; <em>+</em><br><img src="../img/20160118-新建商品.png" alt="创建App内购买项目"></p>
+</li>
+<li>选择项目类型<br><img src="../img/20160118-项目类型.png" alt="项目类型"></li>
+</ol>
+<p>一般对项目来说大多数都是选择“消耗型项目”这个种类，比如游戏中购买虚拟货币等。具体区别请看<a href="https://developer.apple.com/library/iOS/documentation/NetworkingInternet/Conceptual/StoreKitGuide/Chapters/Products.html#//apple_ref/doc/uid/TP40008267-CH2-SW2" target="_blank" rel="external">这里</a> </p>
+<ol>
+<li><p>项目摘要<br><img src="../img/20160118-新建商品2.png" alt="项目摘要"></p>
+<ul>
+<li>参考名称：商品名称，可以根据商品等实际意义填写，不会显示在App Store</li>
+<li>产品ID：要求唯一性，可以用App的Bundle ID加后缀表示</li>
+<li>价格等级：苹果的销售商品不能随意定价，按等级选择合适的即可。点击<em>查看价格表</em>可以看到各等级价格，以及商品卖出后你的实际收益。<br><img src="../img/20160118-新建商品3.png" alt="价格标准"><br>其中<strong>CNY</strong>为人民币</li>
+</ul>
+</li>
+<li><p>项目详情<br><img src="../img/20160118-新建商品4.png" alt="项目详情"></p>
+<ul>
+<li>语言：至少添加一种语言的项目描述</li>
+<li>审核备注：我填了测试账户信息</li>
+<li>屏幕快照：按要求上传，我传的是支付页面的屏幕截图</li>
+</ul>
+</li>
+<li><p>等待审核<br><img src="../img/20160118-准备提交.png" alt="等待审核"></p>
+<p><strong>！这个状态下已经能编码对相应商品就行购买测试了，<em>审核通过</em>的状态得等到App提交后才行</strong></p>
+</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li><h3 id="申请测试账号">申请测试账号</h3><p>  <img src="../img/20160118-用户和职能.png" alt="用户与职能"></p>
+<ol>
+<li>进入<strong>用户与职能</strong></li>
+<li>点击<strong>沙箱技术测试员</strong></li>
+<li><p>点击<strong>+</strong>添加新账号</p>
+<p><strong><em>注意：</em></strong></p>
+</li>
+</ol>
+<ul>
+<li>账号记不住密码就删除，再用不同的邮箱重新创建</li>
+<li>账号创建后不能被修改</li>
+<li>沙盒测试账户被删除后，该Apple ID也不能再用作<em>沙盒测试用户</em>和<em>iTunes Connect用户</em></li>
+<li>账号邮箱可以是随意编造</li>
+<li><strong><em>该账号不能用来在正式的App Store上登录，只用于测试环境下</em></strong></li>
+</ul>
+</li>
+<li><h3 id="测试账号的使用">测试账号的使用</h3><ol>
+<li>清除测试设备的账号信息</li>
+<li>在设备的”设置”里退出App Store账号（这能避免测试过程中真实账号被使用）</li>
+<li>在Xcode中将App编到测试设备</li>
+<li>在测试时，App会要求登录，这时候选择测试账号登录，完成交易</li>
+</ol>
+</li>
+</ul>
+<h2 id="代码部分">代码部分</h2><ul>
+<li><h3 id="购买流程">购买流程</h3><p>  <img src="../img/20160118-iap概览.png" alt="购买阶段"></p>
+<p>  总的来说，交互分为三个阶段：</p>
+<ol>
+<li><strong>获取商品信息：</strong> app向App Store请求商品信息，并展示；</li>
+<li><strong>购买请求：</strong> 用户选择商品，由app向App Store请求购买；</li>
+<li><p><strong>交付商品：</strong> App Store处理支付请求，app交付商品。</p>
+<p><strong>！在Xcode中要加入StoreKit.framework</strong></p>
+</li>
+</ol>
+</li>
+<li><h3 id="获取商品信息">获取商品信息</h3><ol>
+<li><p>从App Bundle或者自己的服务器上获取商品的ID</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// Load the product identifiers fron ProductIds.plist&#10;NSURL *plistURL = [[NSBundle mainBundle] URLForResource:@&#34;ProductIds&#34; withExtension:@&#34;plist&#34;];&#10;NSArray *productIds = [NSArray arrayWithContentsOfURL:plistURL];</span><br></pre></td></tr></table></figure>
+<p>这里的product id就是在<strong>iTunes Connect</strong>中创建的应用内购买项目的ID。</p>
+</li>
+<li><p>将商品ID集合发给App Store（利用SKProductsRequest）</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// Create a product request object and initialize it with our product identifiers&#10;SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithArray:productIds]];&#10;request.delegate = self;&#10;   &#10;// Send the request to the App Store&#10;[request start];</span><br></pre></td></tr></table></figure>
+<p>这里由StoreKit发起异步请求。</p>
+</li>
+<li><p>将App Store返回的商品信息展示（返回的商品用SKProduct表示）</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response&#10;&#123;&#10;   ...&#10;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li><h3 id="购买请求">购买请求</h3><ol>
+<li><p>向SKPaymentQueue添加一个购买请求</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> SKMutablePayment *payment = [SKMutablePayment paymentWithProduct:product];&#10;[[SKPaymentQueue defaultQueue] addPayment:payment];</span><br></pre></td></tr></table></figure>
+<p>SKPaymentQueue会自动向App Sotre 提交购买请求。</p>
+</li>
+<li><p>给SKPaymentQueue添加监听器，该监听器实现了<em>SKPaymentTransactionObserver</em>协议</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// Attach an observer to the payment queue&#10;[[SKPaymentQueue defaultQueue] addTransactionObserver:[StoreObserver sharedInstance]];</span><br></pre></td></tr></table></figure>
+<p>demo中是在App启动时就添加了监听器。<br>主要实现的方法是下面这个更新用的：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// Called when there are trasactions in the payment queue&#10;- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions&#10;&#123;&#10;&#9;for(SKPaymentTransaction * transaction in transactions)&#10;&#9;&#123;&#10;&#9;&#9;switch (transaction.transactionState )&#10;&#9;&#9;&#123;&#10;&#9;&#9;&#9;...&#10;&#9;&#9;&#9;// &#36141;&#20080;&#25104;&#21151;&#10;&#9;&#9;&#9;case SKPaymentTransactionStatePurchased:&#10;&#9;&#9;&#9;&#9;...&#10;&#9;&#9;&#9;&#9;break;&#10;&#9;&#9;&#9;// &#24674;&#22797;&#20132;&#26131;&#10;&#9;&#9;&#9;case SKPaymentTransactionStateRestored:&#10;&#9;&#9;&#9;&#9;...&#10;&#9;&#9;&#9;&#9;break;&#10;&#9;&#9;&#9;// &#36141;&#20080;&#22833;&#36133;&#10;&#9;&#9;&#9;case SKPaymentTransactionStateFailed:&#10;&#9;&#9;&#9;&#9;...&#10;&#9;&#9;&#9;&#9;break;&#10;&#9;&#9;&#9;default:&#10;&#9;&#9;&#9;&#9;break;&#10;&#9;&#9;&#125;&#10;&#9;&#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<p>Restore这种交易状态是恢复。如果有些人在iPhone上用一个账号购买了一个产品，那么在iPad上又下载了这个应用，就不需要重新购买了。通过Restore在App Store中检测你这个账号的购买记录，如果有购买记录存在，那就不用再次购买了，直接恢复，就会出现restoreTransaction。关于    <strong>商品恢复</strong>，请<a href="https://developer.apple.com/library/iOS/documentation/NetworkingInternet/Conceptual/StoreKitGuide/Chapters/Restoring.html#//apple_ref/doc/uid/TP40008267-CH8-SW9" target="_blank" rel="external">点击</a>：</p>
+</li>
+</ol>
+<ul>
+<li><strong>会打断app工作流，不应该每次启动时执行，应该让用户自己触发</strong></li>
+</ul>
+</li>
+<li><h3 id="交付商品">交付商品</h3><ol>
+<li>将购买成功的商品纪录保存，以便下次启动时用</li>
+<li>调用SKPaymentQueue的<code>finishTransaction</code>方法</li>
+</ol>
+</li>
+<li><h3 id="demo">demo</h3><p>  <img src="../img/20160118-demo修改.png" alt="demo项目修改"></p>
+<ul>
+<li><a href="https://developer.apple.com/library/prerelease/iOS/samplecode/sc1991/StoreKitSuite.zip" target="_blank" rel="external">点击下载demo</a></li>
+<li>将工程target中的<em>Bundle Identifier</em>改成前面创建的App ID</li>
+<li>在工程中的<em>ProductIds.plist</em>中添加前面在<strong>iTunes Connect</strong>中创建的商品ID</li>
+<li>编译运行</li>
+</ul>
+</li>
+</ul>
+<h2 id="参考">参考</h2><ul>
+<li><a href="https://developer.apple.com/library/iOS/documentation/NetworkingInternet/Conceptual/StoreKitGuide/Introduction.html" target="_blank" rel="external">In-App Purchase Programming Guide</a></li>
+<li><a href="http://blog.csdn.net/xiaominghimi/article/details/6937097" target="_blank" rel="external">详解iOS应用程序内使用IAP/StoreKit付费、沙盒（SandBox）测试、创建测试账号流程！</a></li>
+<li><a href="http://blog.csdn.net/shenjie12345678/article/details/40978977" target="_blank" rel="external"> iOS应用程序内购/内付费(一)</a></li>
+<li><a href="http://www.jianshu.com/p/c7cf65911bc1" target="_blank" rel="external">iOS App提交指南(二)-协议、税务和银行业务</a></li>
+</ul>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://charlyzhang.github.io/2016/01/18/iOS应用内购买/" data-title="iOS应用内购买App开发完整流程 | CharlyZhang&#39; Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/01/23/一个iOS应用内购买模块的开发/" title="一个iOS应用内购买模块的开发">
+  <strong>上一篇：</strong><br/>
+  <span>
+  一个iOS应用内购买模块的开发</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/01/17/Shell脚本学习笔记/"  title="Shell脚本学习笔记">
+ <strong>下一篇：</strong><br/> 
+ <span>Shell脚本学习笔记
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#编码之前"><span class="toc-number">1.</span> <span class="toc-text">编码之前</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#完善账户信息"><span class="toc-number">1.1.</span> <span class="toc-text">完善账户信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建App"><span class="toc-number">1.2.</span> <span class="toc-text">创建App</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建商品"><span class="toc-number">1.3.</span> <span class="toc-text">创建商品</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#申请测试账号"><span class="toc-number">1.4.</span> <span class="toc-text">申请测试账号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试账号的使用"><span class="toc-number">1.5.</span> <span class="toc-text">测试账号的使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码部分"><span class="toc-number">2.</span> <span class="toc-text">代码部分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#购买流程"><span class="toc-number">2.1.</span> <span class="toc-text">购买流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#获取商品信息"><span class="toc-number">2.2.</span> <span class="toc-text">获取商品信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#购买请求"><span class="toc-number">2.3.</span> <span class="toc-text">购买请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#交付商品"><span class="toc-number">2.4.</span> <span class="toc-text">交付商品</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#demo"><span class="toc-number">2.5.</span> <span class="toc-text">demo</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">3.</span> <span class="toc-text">参考</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/iOS/" title="iOS">iOS<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/软件设计/" title="软件设计">软件设计<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Android/" title="Android">Android<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/随笔/" title="随笔">随笔<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/流程/" title="流程">流程<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Web/" title="Web">Web<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Swift/" title="Swift">Swift<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/翻译/" title="翻译">翻译<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mac/" title="Mac">Mac<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/界面/" title="界面">界面<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Charly Zhang in Founder. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/CharlyZhang" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Charly Zhang">Charly Zhang</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

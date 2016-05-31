@@ -1,0 +1,684 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Shell脚本学习笔记 | CharlyZhang&#39; Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Charly Zhang">
+    
+
+    
+    <meta name="description" content="以前多多少少接触过一些shell命令，用的不多，现在打算好好了解一下。看了Linux Shell脚本教程，这里做点笔记：
+Shell 在线环境tutorialspoint
+几种常见的Shell
+bash: Linux标准默认的shell，内部命令一共有40个。
+sh: Unix 标准默认的shell。
+…
+
+
+bash完全兼容sh，也就是说，用sh写的脚本可以不加修改的在bash中执行。
+
+不使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Shell脚本学习笔记">
+<meta property="og:url" content="http://charlyzhang.github.io/2016/01/17/Shell脚本学习笔记/index.html">
+<meta property="og:site_name" content="CharlyZhang' Blog">
+<meta property="og:description" content="以前多多少少接触过一些shell命令，用的不多，现在打算好好了解一下。看了Linux Shell脚本教程，这里做点笔记：
+Shell 在线环境tutorialspoint
+几种常见的Shell
+bash: Linux标准默认的shell，内部命令一共有40个。
+sh: Unix 标准默认的shell。
+…
+
+
+bash完全兼容sh，也就是说，用sh写的脚本可以不加修改的在bash中执行。
+
+不使用">
+<meta property="og:updated_time" content="2016-01-17T07:42:23.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Shell脚本学习笔记">
+<meta name="twitter:description" content="以前多多少少接触过一些shell命令，用的不多，现在打算好好了解一下。看了Linux Shell脚本教程，这里做点笔记：
+Shell 在线环境tutorialspoint
+几种常见的Shell
+bash: Linux标准默认的shell，内部命令一共有40个。
+sh: Unix 标准默认的shell。
+…
+
+
+bash完全兼容sh，也就是说，用sh写的脚本可以不加修改的在bash中执行。
+
+不使用">
+
+    
+    <link rel="alternative" href="/atom.xml" title="CharlyZhang&#39; Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="CharlyZhang&#39; Blog" title="CharlyZhang&#39; Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="CharlyZhang&#39; Blog">CharlyZhang&#39; Blog</a></h1>
+				<h2 class="blog-motto">每个人的一生，都是一次远行</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:charlyzhang.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/01/17/Shell脚本学习笔记/" title="Shell脚本学习笔记" itemprop="url">Shell脚本学习笔记</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Charly Zhang" target="_blank" itemprop="author">Charly Zhang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-17T07:01:49.000Z" itemprop="datePublished"> 發表於 2016-01-17</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Shell_在线环境"><span class="toc-number">1.</span> <span class="toc-text">Shell 在线环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#几种常见的Shell"><span class="toc-number">2.</span> <span class="toc-text">几种常见的Shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#不使用Shell的情况"><span class="toc-number">3.</span> <span class="toc-text">不使用Shell的情况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Shell脚本"><span class="toc-number">4.</span> <span class="toc-text">Shell脚本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#变量"><span class="toc-number">4.1.</span> <span class="toc-text">变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Shell替换"><span class="toc-number">4.2.</span> <span class="toc-text">Shell替换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注释"><span class="toc-number">4.3.</span> <span class="toc-text">注释</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串"><span class="toc-number">4.4.</span> <span class="toc-text">字符串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数组"><span class="toc-number">4.5.</span> <span class="toc-text">数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#printf命令"><span class="toc-number">4.6.</span> <span class="toc-text">printf命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#case_…_esac"><span class="toc-number">4.7.</span> <span class="toc-text">case … esac</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运算符"><span class="toc-number">4.8.</span> <span class="toc-text">运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#break命令"><span class="toc-number">4.9.</span> <span class="toc-text">break命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数"><span class="toc-number">4.10.</span> <span class="toc-text">函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#输入输出重定向"><span class="toc-number">4.11.</span> <span class="toc-text">输入输出重定向</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件包含"><span class="toc-number">4.12.</span> <span class="toc-text">文件包含</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<p>以前多多少少接触过一些shell命令，用的不多，现在打算好好了解一下。看了<a href="http://c.biancheng.net/cpp/shell/" target="_blank" rel="external">Linux Shell脚本教程</a>，这里做点笔记：</p>
+<h2 id="Shell_在线环境">Shell 在线环境</h2><p><a href="http://www.tutorialspoint.com/unix_terminal_online.php" target="_blank" rel="external">tutorialspoint</a></p>
+<h2 id="几种常见的Shell">几种常见的Shell</h2><ul>
+<li><strong>bash:</strong> Linux标准默认的shell，内部命令一共有40个。</li>
+<li><strong>sh:</strong> Unix 标准默认的shell。</li>
+<li>…</li>
+</ul>
+<blockquote>
+<p>bash完全兼容sh，也就是说，用sh写的脚本可以不加修改的在bash中执行。</p>
+</blockquote>
+<h2 id="不使用Shell的情况">不使用Shell的情况</h2><ol>
+<li>资源密集型的任务，尤其在需要考虑效率时（比如，排序，hash等等）。</li>
+<li>需要处理大任务的数学操作，尤其是浮点运算，精确运算，或者复杂的算术运算（这种情况一般使用C++或FORTRAN 来处理）。</li>
+<li>有跨平台（操作系统）移植需求（一般使用C 或Java）。</li>
+<li>复杂的应用，在必须使用结构化编程的时候（需要变量的类型检查，函数原型，等等）。</li>
+<li>对于影响系统全局性的关键任务应用。</li>
+<li>对于安全有很高要求的任务，比如你需要一个健壮的系统来防止入侵、破解、恶意破坏等等。</li>
+<li>项目由连串的依赖的各个部分组成。</li>
+<li>需要大规模的文件操作。</li>
+<li>需要多维数组的支持。</li>
+<li>需要数据结构的支持，比如链表或数等数据结构。</li>
+<li>需要产生或操作图形化界面 GUI。</li>
+<li>需要直接操作系统硬件。</li>
+<li>需要 I/O 或socket 接口。</li>
+<li>需要使用库或者遗留下来的老代码的接口。</li>
+<li>私人的、闭源的应用（shell 脚本把代码就放在文本文件中，全世界都能看到）</li>
+</ol>
+<h2 id="Shell脚本">Shell脚本</h2><ul>
+<li><code>“#!”</code> 是一个约定的标记，它告诉系统这个脚本需要什么解释器来执行，即使用哪一种Shell。</li>
+<li><h3 id="变量">变量</h3><ul>
+<li>变量名和等号之间不能有空格。</li>
+<li>定义变量时，变量名不加美元符号（$）；使用一个定义过的变量，只要在变量名前面加美元符号（$）即可。</li>
+<li>变量名外面的花括号是可选的，加不加都行，加花括号是为了帮助解释器识别变量的边界。建议使用时在所有变量外加花括号。</li>
+<li>使用<strong>readonly</strong>命令可以将变量定义为只读变量，只读变量的值不能被改变。 </li>
+<li>使用<strong>unset</strong>命令可以删除变量。</li>
+<li>变量类型：<ol>
+<li>局部变量：在脚本或命令中定义，仅在当前shell实例中有效，其他shell启动的程序不能访问局部变量。</li>
+<li>环境变量：所有的程序，包括shell启动的程序，都能访问环境变量，有些程序需要环境变量来保证其正常运行。必要的时候shell脚本也可以定义环境变量。</li>
+<li>shell变量：由shell程序设置的特殊变量。shell变量中有一部分是环境变量，有一部分是局部变量，这些变量保证了shell的正常运行。</li>
+</ol>
+</li>
+<li>特殊变量：<ol>
+<li><code>$0</code>    当前脚本的文件名</li>
+<li><code>$n</code>    传递给脚本或函数的参数。n 是一个数字，表示第几个参数。例如，第一个参数是$1，第二个参数是$2。</li>
+<li><code>$#</code>    传递给脚本或函数的参数个数。</li>
+<li><code>$*</code>    传递给脚本或函数的所有参数。</li>
+<li><code>$@</code>    传递给脚本或函数的所有参数。被双引号(“ “)包含时，与 $* 稍有不同，下面将会讲到。</li>
+<li><code>$?</code>    上个命令的退出状态，或函数的返回值。</li>
+<li><code>$$</code>    当前Shell进程ID。对于 Shell 脚本，就是这些脚本所在的进程ID。</li>
+</ol>
+</li>
+<li><p><code>$*</code> 和 <code>$@</code> 的区别</p>
+<p>  $<em> 和 $@ 都表示传递给函数或脚本的所有参数，不被双引号(“ “)包含时，都以”$1” “$2” … “$n” 的形式输出所有参数。但是当它们被双引号(“ “)包含时，”$</em>“ 会将所有的参数作为一个整体，以”$1 $2 … $n”的形式输出所有参数；”$@” 会将各个参数分开，以”$1” “$2” … “$n” 的形式输出所有参数.</p>
+</li>
+</ul>
+</li>
+<li><h3 id="Shell替换">Shell替换</h3><ul>
+<li><code>echo</code>命令的 <em>-e</em> 表示对转义字符进行替换，<em>-E</em> 选项禁止转义，默认也是不转义的；使用 <em>-n</em> 选项可以禁止插入换行符。</li>
+<li>变量替换<ol>
+<li><code>${var}</code>    变量本来的值</li>
+<li><code>${var:-word}</code>    如果变量 var 为空或已被删除(unset)，那么返回 word，但不改变 var 的值。</li>
+<li><code>${var:=word}</code>    如果变量 var 为空或已被删除(unset)，那么返回 word，并将 var 的值设置为 word。</li>
+<li><code>${var:?message}</code>    如果变量 var 为空或已被删除(unset)，那么将消息 message 送到标准错误输出，可以用来检测变量 var 是否可以被正常赋值。<br>若此替换出现在Shell脚本中，那么脚本将停止运行。</li>
+<li><code>${var:+word}</code>    如果变量 var 被定义，那么返回 word，但不改变 var 的值。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><h3 id="注释">注释</h3><ul>
+<li>只有单行注释，用<code>#</code></li>
+<li>如果在开发过程中，遇到大段的代码需要临时注释起来，可以把这一段要注释的代码用一对花括号括起来，定义成一个函数，没有地方调用这个函数，这块代码就不会执行。</li>
+</ul>
+</li>
+<li><h3 id="字符串">字符串</h3><ul>
+<li><strong>单引号：</strong>单引号字符串中的变量是无效的；单引号字串中不能出现单引号（对单引号使用转义符后也不行）。</li>
+<li><strong>双引号：</strong>双引号里可以有变量，双引号里可以出现转义字符。</li>
+<li>获取字符串长度：<figure class="highlight"><figcaption><span>$&#123;#string&#125; #输出 4```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- &#25552;&#21462;&#23376;&#23383;&#31526;&#20018;&#65306;&#10;```echo $&#123;string:1:4&#125; #&#36755;&#20986;liba</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><h3 id="数组">数组</h3><ul>
+<li>用括号表示</li>
+<li>使用<strong>@</strong> 或 <strong> * </strong> 可以作下标获取数组中的所有元素</li>
+</ul>
+</li>
+<li><h3 id="printf命令">printf命令</h3><p>  与C语言中的<code>printf</code>的不同：</p>
+<ul>
+<li>不用加括号</li>
+<li>参数的分隔用空格，不是逗号</li>
+<li>格式字符串能重用，可以将所有参数都转换</li>
+</ul>
+</li>
+<li><h3 id="case_…_esac">case … esac</h3><ul>
+<li>类似于C中的<code>switch ...case...</code>语句</li>
+<li>取值后面必须为关键字 in，每一模式必须以右括号结束</li>
+<li><code>;;</code> 与其他语言中的 break 类似</li>
+<li><code>*</code> 类似于<code>default</code>，捕捉其他情况</li>
+</ul>
+</li>
+<li><h3 id="运算符">运算符</h3><ul>
+<li><p><code>expr</code>：</p>
+<ol>
+<li>注意表达式和运算符之间要有空格；</li>
+<li>乘号(*)前边必须加反斜杠()才能实现乘法运算。</li>
+</ol>
+</li>
+<li><p>关系运算符：只支持数字，不支持字符串，除非字符串的值是数字。</p>
+</li>
+<li>布尔运算符：<ol>
+<li><code>!</code>    非运算</li>
+<li><code>-o</code>    或运算</li>
+<li><code>-a</code> 与运算</li>
+</ol>
+</li>
+<li><p>字符串运算符：</p>
+<ol>
+<li><code>=</code>    检测两个字符串是否相等；<strong>算数运算符的相等比较用<code>==</code></strong></li>
+<li><code>!=</code>    检测两个字符串是否相等</li>
+<li><code>-z</code>    检测字符串长度是否为0</li>
+<li><code>-n</code>    检测字符串长度是否为0</li>
+<li><code>str</code> 检测字符串是否不为空</li>
+</ol>
+</li>
+<li><p>文件测试运算符：</p>
+<ol>
+<li><code>-b file</code>    检测文件是否是块设备文件，如果是，则返回 true。    [ -b $file ] 返回 false。</li>
+<li><code>-c file</code>    检测文件是否是字符设备文件。</li>
+<li><code>-d file</code>    检测文件是否是目录。</li>
+<li><code>-f file</code>    检测文件是否是普通文件（既不是目录，也不是设备文件）。</li>
+<li><code>-g file</code>    检测文件是否设置了 SGID 位。</li>
+<li><code>-k file</code>    检测文件是否设置了粘着位(Sticky Bit)。</li>
+<li><code>-p file</code>    检测文件是否是具名管道。</li>
+<li><code>-u file</code>    检测文件是否设置了 SUID 位。</li>
+<li><code>-r file</code>    检测文件是否可。</li>
+<li><code>-w file</code>    检测文件是否可写。</li>
+<li><code>-x file</code>    检测文件是否可执行。</li>
+<li><code>-s file</code>    检测文件是否不为空（文件大小是否大于0）。</li>
+<li><code>-e file</code>    检测文件（包括目录）是否存在。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><h3 id="break命令">break命令</h3><ul>
+<li>跳出循环，不跳出case</li>
+<li>在嵌套循环中，break 命令后面还可以跟一个整数，表示跳出第几层循环</li>
+</ul>
+</li>
+<li><h3 id="函数">函数</h3><ul>
+<li>定义函数时，函数名前加上关键字 <code>function</code> 可有可无</li>
+<li>可以显式增加return语句；如果不加，会将最后一条命令运行结果作为返回值</li>
+<li>调用函数只需要给出函数名，不需要加括号</li>
+<li>删除函数也可以使用 <code>unset</code> 命令，不过要加上 .f 选项</li>
+<li>将函数定义在主目录下的 .profile 文件，这样每次登录后，在命令提示符后面输入函数名字就可以立即调用</li>
+</ul>
+</li>
+<li><h3 id="输入输出重定向">输入输出重定向</h3><ol>
+<li><code>command &gt; file</code>    将输出重定向到 file。</li>
+<li><code>command &lt; file</code>    将输入重定向到 file。</li>
+<li><code>command &gt;&gt; file</code>    将输出以追加的方式重定向到 file。</li>
+<li><code>n &gt; file</code>    将文件描述符为 n 的文件重定向到 file。</li>
+<li><code>n &gt;&gt; file</code>    将文件描述符为 n 的文件以追加的方式重定向到 file。</li>
+<li><code>n &gt;&amp; m</code>    将输出文件 m 和 n 合并。</li>
+<li><code>n &lt;&amp; m</code>    将输入文件 m 和 n 合并。</li>
+<li><p><code>&lt;&lt; tag</code>    将开始标记 tag 和结束标记 tag 之间的内容作为输入。</p>
+<p><strong>/dev/null 文件</strong>是一个特殊的文件，写入到它的内容都会被丢弃；如果尝试从该文件读取内容，那么什么也读不到.</p>
+</li>
+</ol>
+</li>
+<li><h3 id="文件包含">文件包含</h3><ul>
+<li>Shell 中包含脚本可以使用：<code>. filename</code> 或 <code>source filename</code></li>
+<li>被包含脚本不需要有执行权限</li>
+</ul>
+</li>
+</ul>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Linux/">Linux</a><a href="/tags/笔记/">笔记</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://charlyzhang.github.io/2016/01/17/Shell脚本学习笔记/" data-title="Shell脚本学习笔记 | CharlyZhang&#39; Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/01/18/iOS应用内购买/" title="iOS应用内购买App开发完整流程">
+  <strong>上一篇：</strong><br/>
+  <span>
+  iOS应用内购买App开发完整流程</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/01/15/2016极客公园创新大会有感/"  title="2016极客公园创新大会有感">
+ <strong>下一篇：</strong><br/> 
+ <span>2016极客公园创新大会有感
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Shell_在线环境"><span class="toc-number">1.</span> <span class="toc-text">Shell 在线环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#几种常见的Shell"><span class="toc-number">2.</span> <span class="toc-text">几种常见的Shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#不使用Shell的情况"><span class="toc-number">3.</span> <span class="toc-text">不使用Shell的情况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Shell脚本"><span class="toc-number">4.</span> <span class="toc-text">Shell脚本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#变量"><span class="toc-number">4.1.</span> <span class="toc-text">变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Shell替换"><span class="toc-number">4.2.</span> <span class="toc-text">Shell替换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注释"><span class="toc-number">4.3.</span> <span class="toc-text">注释</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串"><span class="toc-number">4.4.</span> <span class="toc-text">字符串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数组"><span class="toc-number">4.5.</span> <span class="toc-text">数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#printf命令"><span class="toc-number">4.6.</span> <span class="toc-text">printf命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#case_…_esac"><span class="toc-number">4.7.</span> <span class="toc-text">case … esac</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运算符"><span class="toc-number">4.8.</span> <span class="toc-text">运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#break命令"><span class="toc-number">4.9.</span> <span class="toc-text">break命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数"><span class="toc-number">4.10.</span> <span class="toc-text">函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#输入输出重定向"><span class="toc-number">4.11.</span> <span class="toc-text">输入输出重定向</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件包含"><span class="toc-number">4.12.</span> <span class="toc-text">文件包含</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/iOS/" title="iOS">iOS<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/软件设计/" title="软件设计">软件设计<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Android/" title="Android">Android<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/随笔/" title="随笔">随笔<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/流程/" title="流程">流程<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Web/" title="Web">Web<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Swift/" title="Swift">Swift<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/翻译/" title="翻译">翻译<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mac/" title="Mac">Mac<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/界面/" title="界面">界面<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Charly Zhang in Founder. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/CharlyZhang" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Charly Zhang">Charly Zhang</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

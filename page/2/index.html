@@ -1,0 +1,1242 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>CharlyZhang&#39; Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Charly Zhang">
+    
+
+    
+    <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="CharlyZhang' Blog">
+<meta property="og:url" content="http://charlyzhang.github.io/page/2/index.html">
+<meta property="og:site_name" content="CharlyZhang' Blog">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CharlyZhang' Blog">
+<meta name="twitter:description">
+
+    
+    <link rel="alternative" href="/atom.xml" title="CharlyZhang&#39; Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="CharlyZhang&#39; Blog" title="CharlyZhang&#39; Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="CharlyZhang&#39; Blog">CharlyZhang&#39; Blog</a></h1>
+				<h2 class="blog-motto">每个人的一生，都是一次远行</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:charlyzhang.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main">
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/01/17/Shell脚本学习笔记/" title="Shell脚本学习笔记" itemprop="url">Shell脚本学习笔记</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Charly Zhang" target="_blank" itemprop="author">Charly Zhang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-17T07:01:49.000Z" itemprop="datePublished"> 發表於 2016-01-17</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>以前多多少少接触过一些shell命令，用的不多，现在打算好好了解一下。看了<a href="http://c.biancheng.net/cpp/shell/" target="_blank" rel="external">Linux Shell脚本教程</a>，这里做点笔记：</p>
+<h2 id="Shell_在线环境">Shell 在线环境</h2><p><a href="http://www.tutorialspoint.com/unix_terminal_online.php" target="_blank" rel="external">tutorialspoint</a></p>
+<h2 id="几种常见的Shell">几种常见的Shell</h2><ul>
+<li><strong>bash:</strong> Linux标准默认的shell，内部命令一共有40个。</li>
+<li><strong>sh:</strong> Unix 标准默认的shell。</li>
+<li>…</li>
+</ul>
+<blockquote>
+<p>bash完全兼容sh，也就是说，用sh写的脚本可以不加修改的在bash中执行。</p>
+</blockquote>
+<h2 id="不使用Shell的情况">不使用Shell的情况</h2><ol>
+<li>资源密集型的任务，尤其在需要考虑效率时（比如，排序，hash等等）。</li>
+<li>需要处理大任务的数学操作，尤其是浮点运算，精确运算，或者复杂的算术运算（这种情况一般使用C++或FORTRAN 来处理）。</li>
+<li>有跨平台（操作系统）移植需求（一般使用C 或Java）。</li>
+<li>复杂的应用，在必须使用结构化编程的时候（需要变量的类型检查，函数原型，等等）。</li>
+<li>对于影响系统全局性的关键任务应用。</li>
+<li>对于安全有很高要求的任务，比如你需要一个健壮的系统来防止入侵、破解、恶意破坏等等。</li>
+<li>项目由连串的依赖的各个部分组成。</li>
+<li>需要大规模的文件操作。</li>
+<li>需要多维数组的支持。</li>
+<li>需要数据结构的支持，比如链表或数等数据结构。</li>
+<li>需要产生或操作图形化界面 GUI。</li>
+<li>需要直接操作系统硬件。</li>
+<li>需要 I/O 或socket 接口。</li>
+<li>需要使用库或者遗留下来的老代码的接口。</li>
+<li>私人的、闭源的应用（shell 脚本把代码就放在文本文件中，全世界都能看到）</li>
+</ol>
+<h2 id="Shell脚本">Shell脚本</h2><ul>
+<li><code>“#!”</code> 是一个约定的标记，它告诉系统这个脚本需要什么解释器来执行，即使用哪一种Shell。</li>
+<li><h3 id="变量">变量</h3><ul>
+<li>变量名和等号之间不能有空格。</li>
+<li>定义变量时，变量名不加美元符号（$）；使用一个定义过的变量，只要在变量名前面加美元符号（$）即可。</li>
+<li>变量名外面的花括号是可选的，加不加都行，加花括号是为了帮助解释器识别变量的边界。建议使用时在所有变量外加花括号。</li>
+<li>使用<strong>readonly</strong>命令可以将变量定义为只读变量，只读变量的值不能被改变。 </li>
+<li>使用<strong>unset</strong>命令可以删除变量。</li>
+<li>变量类型：<ol>
+<li>局部变量：在脚本或命令中定义，仅在当前shell实例中有效，其他shell启动的程序不能访问局部变量。</li>
+<li>环境变量：所有的程序，包括shell启动的程序，都能访问环境变量，有些程序需要环境变量来保证其正常运行。必要的时候shell脚本也可以定义环境变量。</li>
+<li>shell变量：由shell程序设置的特殊变量。shell变量中有一部分是环境变量，有一部分是局部变量，这些变量保证了shell的正常运行。</li>
+</ol>
+</li>
+<li>特殊变量：<ol>
+<li><code>$0</code>    当前脚本的文件名</li>
+<li><code>$n</code>    传递给脚本或函数的参数。n 是一个数字，表示第几个参数。例如，第一个参数是$1，第二个参数是$2。</li>
+<li><code>$#</code>    传递给脚本或函数的参数个数。</li>
+<li><code>$*</code>    传递给脚本或函数的所有参数。</li>
+<li><code>$@</code>    传递给脚本或函数的所有参数。被双引号(“ “)包含时，与 $* 稍有不同，下面将会讲到。</li>
+<li><code>$?</code>    上个命令的退出状态，或函数的返回值。</li>
+<li><code>$$</code>    当前Shell进程ID。对于 Shell 脚本，就是这些脚本所在的进程ID。</li>
+</ol>
+</li>
+<li><p><code>$*</code> 和 <code>$@</code> 的区别</p>
+<p>  $<em> 和 $@ 都表示传递给函数或脚本的所有参数，不被双引号(“ “)包含时，都以”$1” “$2” … “$n” 的形式输出所有参数。但是当它们被双引号(“ “)包含时，”$</em>“ 会将所有的参数作为一个整体，以”$1 $2 … $n”的形式输出所有参数；”$@” 会将各个参数分开，以”$1” “$2” … “$n” 的形式输出所有参数.</p>
+</li>
+</ul>
+</li>
+<li><h3 id="Shell替换">Shell替换</h3><ul>
+<li><code>echo</code>命令的 <em>-e</em> 表示对转义字符进行替换，<em>-E</em> 选项禁止转义，默认也是不转义的；使用 <em>-n</em> 选项可以禁止插入换行符。</li>
+<li>变量替换<ol>
+<li><code>${var}</code>    变量本来的值</li>
+<li><code>${var:-word}</code>    如果变量 var 为空或已被删除(unset)，那么返回 word，但不改变 var 的值。</li>
+<li><code>${var:=word}</code>    如果变量 var 为空或已被删除(unset)，那么返回 word，并将 var 的值设置为 word。</li>
+<li><code>${var:?message}</code>    如果变量 var 为空或已被删除(unset)，那么将消息 message 送到标准错误输出，可以用来检测变量 var 是否可以被正常赋值。<br>若此替换出现在Shell脚本中，那么脚本将停止运行。</li>
+<li><code>${var:+word}</code>    如果变量 var 被定义，那么返回 word，但不改变 var 的值。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><h3 id="注释">注释</h3><ul>
+<li>只有单行注释，用<code>#</code></li>
+<li>如果在开发过程中，遇到大段的代码需要临时注释起来，可以把这一段要注释的代码用一对花括号括起来，定义成一个函数，没有地方调用这个函数，这块代码就不会执行。</li>
+</ul>
+</li>
+<li><h3 id="字符串">字符串</h3><ul>
+<li><strong>单引号：</strong>单引号字符串中的变量是无效的；单引号字串中不能出现单引号（对单引号使用转义符后也不行）。</li>
+<li><strong>双引号：</strong>双引号里可以有变量，双引号里可以出现转义字符。</li>
+<li>获取字符串长度：<figure class="highlight"><figcaption><span>$&#123;#string&#125; #输出 4```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- &#25552;&#21462;&#23376;&#23383;&#31526;&#20018;&#65306;&#10;```echo $&#123;string:1:4&#125; #&#36755;&#20986;liba</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><h3 id="数组">数组</h3><ul>
+<li>用括号表示</li>
+<li>使用<strong>@</strong> 或 <strong> * </strong> 可以作下标获取数组中的所有元素</li>
+</ul>
+</li>
+<li><h3 id="printf命令">printf命令</h3><p>  与C语言中的<code>printf</code>的不同：</p>
+<ul>
+<li>不用加括号</li>
+<li>参数的分隔用空格，不是逗号</li>
+<li>格式字符串能重用，可以将所有参数都转换</li>
+</ul>
+</li>
+<li><h3 id="case_…_esac">case … esac</h3><ul>
+<li>类似于C中的<code>switch ...case...</code>语句</li>
+<li>取值后面必须为关键字 in，每一模式必须以右括号结束</li>
+<li><code>;;</code> 与其他语言中的 break 类似</li>
+<li><code>*</code> 类似于<code>default</code>，捕捉其他情况</li>
+</ul>
+</li>
+<li><h3 id="运算符">运算符</h3><ul>
+<li><p><code>expr</code>：</p>
+<ol>
+<li>注意表达式和运算符之间要有空格；</li>
+<li>乘号(*)前边必须加反斜杠()才能实现乘法运算。</li>
+</ol>
+</li>
+<li><p>关系运算符：只支持数字，不支持字符串，除非字符串的值是数字。</p>
+</li>
+<li>布尔运算符：<ol>
+<li><code>!</code>    非运算</li>
+<li><code>-o</code>    或运算</li>
+<li><code>-a</code> 与运算</li>
+</ol>
+</li>
+<li><p>字符串运算符：</p>
+<ol>
+<li><code>=</code>    检测两个字符串是否相等；<strong>算数运算符的相等比较用<code>==</code></strong></li>
+<li><code>!=</code>    检测两个字符串是否相等</li>
+<li><code>-z</code>    检测字符串长度是否为0</li>
+<li><code>-n</code>    检测字符串长度是否为0</li>
+<li><code>str</code> 检测字符串是否不为空</li>
+</ol>
+</li>
+<li><p>文件测试运算符：</p>
+<ol>
+<li><code>-b file</code>    检测文件是否是块设备文件，如果是，则返回 true。    [ -b $file ] 返回 false。</li>
+<li><code>-c file</code>    检测文件是否是字符设备文件。</li>
+<li><code>-d file</code>    检测文件是否是目录。</li>
+<li><code>-f file</code>    检测文件是否是普通文件（既不是目录，也不是设备文件）。</li>
+<li><code>-g file</code>    检测文件是否设置了 SGID 位。</li>
+<li><code>-k file</code>    检测文件是否设置了粘着位(Sticky Bit)。</li>
+<li><code>-p file</code>    检测文件是否是具名管道。</li>
+<li><code>-u file</code>    检测文件是否设置了 SUID 位。</li>
+<li><code>-r file</code>    检测文件是否可。</li>
+<li><code>-w file</code>    检测文件是否可写。</li>
+<li><code>-x file</code>    检测文件是否可执行。</li>
+<li><code>-s file</code>    检测文件是否不为空（文件大小是否大于0）。</li>
+<li><code>-e file</code>    检测文件（包括目录）是否存在。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><h3 id="break命令">break命令</h3><ul>
+<li>跳出循环，不跳出case</li>
+<li>在嵌套循环中，break 命令后面还可以跟一个整数，表示跳出第几层循环</li>
+</ul>
+</li>
+<li><h3 id="函数">函数</h3><ul>
+<li>定义函数时，函数名前加上关键字 <code>function</code> 可有可无</li>
+<li>可以显式增加return语句；如果不加，会将最后一条命令运行结果作为返回值</li>
+<li>调用函数只需要给出函数名，不需要加括号</li>
+<li>删除函数也可以使用 <code>unset</code> 命令，不过要加上 .f 选项</li>
+<li>将函数定义在主目录下的 .profile 文件，这样每次登录后，在命令提示符后面输入函数名字就可以立即调用</li>
+</ul>
+</li>
+<li><h3 id="输入输出重定向">输入输出重定向</h3><ol>
+<li><code>command &gt; file</code>    将输出重定向到 file。</li>
+<li><code>command &lt; file</code>    将输入重定向到 file。</li>
+<li><code>command &gt;&gt; file</code>    将输出以追加的方式重定向到 file。</li>
+<li><code>n &gt; file</code>    将文件描述符为 n 的文件重定向到 file。</li>
+<li><code>n &gt;&gt; file</code>    将文件描述符为 n 的文件以追加的方式重定向到 file。</li>
+<li><code>n &gt;&amp; m</code>    将输出文件 m 和 n 合并。</li>
+<li><code>n &lt;&amp; m</code>    将输入文件 m 和 n 合并。</li>
+<li><p><code>&lt;&lt; tag</code>    将开始标记 tag 和结束标记 tag 之间的内容作为输入。</p>
+<p><strong>/dev/null 文件</strong>是一个特殊的文件，写入到它的内容都会被丢弃；如果尝试从该文件读取内容，那么什么也读不到.</p>
+</li>
+</ol>
+</li>
+<li><h3 id="文件包含">文件包含</h3><ul>
+<li>Shell 中包含脚本可以使用：<code>. filename</code> 或 <code>source filename</code></li>
+<li>被包含脚本不需要有执行权限</li>
+</ul>
+</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Linux/">Linux</a><a href="/tags/笔记/">笔记</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/01/15/2016极客公园创新大会有感/" title="2016极客公园创新大会有感" itemprop="url">2016极客公园创新大会有感</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Charly Zhang" target="_blank" itemprop="author">Charly Zhang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-15T15:39:45.000Z" itemprop="datePublished"> 發表於 2016-01-15</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>今天是<a href="http://www.geekpark.net/collections/GIF%202016" target="_blank" rel="external"><strong>GIF2016</strong></a>的第一天。我很早就在关注这个大会，并且报名了。可这两天事情比较多，本来还有犹豫今天要不要去。去了后听到了有用的东西，还是觉得很值得的，也不枉我请假，早起，各种赶车从京城西北赶到798。<br><img src="../img/20160115-1.jpg" alt="GIF大会"><br>去了很多大牛，基本都是很出色公司的创始人/CEO之类的，有<strong>Uber</strong>/<strong>积木盒子</strong>/<strong>蓝港互动</strong>/<strong>100offer</strong>/<strong>努比亚</strong>等。大牛的故事听起来都是各种味道，激情满满，我已经有点免疫了。不过有两个人说的我想记录一下，他们的话让我有了新的角度。是<strong>两个不同年龄段人为梦想的努力</strong></p>
+<h2 id="张向东,_700bike">张向东, 700bike</h2><p><img src="../img/20160115-3.jpg" alt="这句话先触动了我"></p>
+<blockquote>
+<p>哪里有什么模式可复制，唯有试错，反思再前进</p>
+</blockquote>
+<p>他说的这句话没什么特别的，却吸引了我。最近总是觉得自己畏手畏脚，很想要找到那种不顾一切的闯劲，所以这话很对我的口。<br>他开始谈<strong>自我否定</strong>，他认为不是所有行业都存在单品爆款，不应该试图用一个app改变一个行业。我听到的意思是：</p>
+<pre><code>跨行业创业，应该站在你要发展的行业看待问题
+</code></pre><p>很多人，包括我之前对<em>互联网＋</em>或者<em>互联网与其他行业的合作</em>都是用站在“互联网”这边角度思考，对传统行业往往用的就是“改造”，甚至是“颠覆”之类的字眼。而一个小产品就想改变一个行业，张向东认为那太小瞧那个行业了。所以他现在给自己的定位是<strong>「城市自行车」的创新，而不是智能硬件的创新。</strong><br>这在我看来就是</p>
+<pre><code>一个人实现了财务自由，然后带着他在以往工作领域积累的经验去逐梦，在爱好的领域开始新的创业。他将自己定位在新的行业中，用以往领域的知识让现在的行业变得更好。
+</code></pre><h2 id="齐俊元,_Teambition">齐俊元, Teambition</h2><p>关注到他，是因为最近想提升团队的工作效率，试用了几款协同工具。齐俊元说的是他做这个工具的理想，他希望做点真正对社会有用的东西，不管怎样的动机，这也是个有情怀说法，也是个逐梦的故事。而他，还只是个90后。<br>我希望工具能提升团队的效率，而齐俊元在说这个产品形成过程中的故事时，提到了一句：</p>
+<blockquote>
+<p>扁平化决策比扁平化机构更重要</p>
+</blockquote>
+<pre><code>这个让我觉得很重要。现在公司说要做<span class="keyword">*</span><span class="keyword">*</span>扁平化组织结构<span class="keyword">*</span><span class="keyword">*</span>，貌似也确实是这样子的，大家都能很快和领导沟通到，领导也会让大家看到不少信息。可是效率依然不高。原因或许就在于决策还不是扁平化的。这种情况下，大家不能真正参与到决策中来，你扁平化的机构给员工再多信息也白搭，人家根本不care，他觉得反正自己也没有发言权。
+</code></pre><h2 id="其他">其他</h2><h3 id="VR体验">VR体验</h3><p>随着苹果调整组织架构，正式涉足<strong>VR/AR</strong>领域，<strong>VR/AR</strong>看上去都快要到爆发的时候了。我这次过来想重点看看这方面的行业发展，毕竟这是老本行，以前就是研究这个的。<br><img src="../img/20160115-4.jpg" alt="诺亦腾发布alice"></p>
+<p>试玩了几个头戴式设备，体验没有特别的，后来听说还有个可以用三星手机屏当头戴设备的，没来得及体验。诺亦腾发布alice项目，说是可以对动作进行毫米级捕捉，这个很不错，不过不知道传感器能否隐藏起来，放在外面总是影响使用的。<br>至于他们的增强现实，我只能说渲染的场景还是不够逼真，我在设备中看到的场景就模模糊糊的，人肯定没法长时间戴着那个在场景中。</p>
+<h3 id="700bike自行车体验">700bike自行车体验</h3><p>中午的时候我进了体验区，逛着逛着被一个摆着好些个漂亮自行车的展区吸引住了。首先就觉得这是个智能硬件的厂商，然后上去就问人家“和普通自行车有啥不一样”“都有哪些智能功能”之类的，当听说这自行车就是“装载GPS，拥有显示屏”“可以防盗，可以显示骑行速度…”时不免有些失望。现在看来那会真是只站着”互联网”角度去想“颠覆”之类的了。<br><img src="../img/20160115-2.jpg" alt="除了脸，其他都清晰"></p>
+<p>我被色彩鲜艳的车子吸引了，加上本来也对这个有兴趣，就试骑了一下，体验还是不错的，还有自动变速。可我对这个公司的看法还是在听了张向东演讲后改变的。</p>
+<h3 id="链接">链接</h3><ul>
+<li><a href="http://www.geekpark.net/topics/214498" target="_blank" rel="external">张向东：骑行 App 的成功率几乎为零</a></li>
+<li><a href="http://www.geekpark.net/topics/214501" target="_blank" rel="external">从大三开始创业，我是如何在不断地摸爬滚打中做好一款协同工具的？</a></li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/随笔/">随笔</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/01/13/在Flickr的开发与运维合作/" title="在Flickr的开发与运维合作" itemprop="url">在Flickr的开发与运维合作</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Charly Zhang" target="_blank" itemprop="author">Charly Zhang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-13T12:32:12.000Z" itemprop="datePublished"> 發表於 2016-01-13</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>这是在微软技术大会Ignite2015上听<strong>李智桦</strong>老师推荐的视频，说得是DevOps（开发运维一体化），旨在推动IT开发效率。</p>
+<p>视频中的两个小伙来自Flickr，人家一天能发布十多个版本。这效率也真是让人醉了，开发运维搅在一起，也真是激情无限。做了点笔记（很久不用英语，听错了的请轻拍）：</p>
+<p>##要点</p>
+<ol>
+<li>自动化基础<ul>
+<li>角色／配置管理<ul>
+<li>系统镜像？</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>统一版本控制方式<ul>
+<li>运维人员也需</li>
+<li>让所有人都知道该干什么</li>
+</ul>
+</li>
+<li>一步编译／部署<ul>
+<li>一个操作解决</li>
+<li>工具自动记录时间／任务／事情</li>
+<li>小而频繁地更改</li>
+</ul>
+</li>
+<li><p>特征标记（分支）<br><img src="../img/20160113-1.png" alt="桌面软件"></p>
+<ul>
+<li>可以开发很多功能，完成之前不对外开放</li>
+<li>不同开发语言都有？</li>
+<li><p>水桶测试</p>
+<blockquote>
+<p>设想把编程看成是转动曲柄从井里提一桶水上来的过程。如果水桶比较小，那么仅需一个能自由转动的曲柄就可以了。如果水桶比较大而且装满水，那么还没等水桶全部被提上来你就会很累了。你需要一个防倒转的装置，以保证每转一次可以休息一会儿。水桶越重，防倒转的棘齿相距越近。  测试驱动开发中的测试程序就是防倒转装置上的棘齿。一旦我们的某个测试程序能工作了，你就知道，它从现在开始并且以后永远都可以工作了。相比于测试程序没有通过，你距离让所有的测试程序都工作又近了一步。现在我们的工作是让下一个测试程序工作，然后再下一个，就这样一直进行。分析表明，要编程解决的问题越难，每次测试所覆盖的范围就应该越小。</p>
+</blockquote>
+</li>
+<li><p><a href="http://changelog.ca/log/2012/07/19/dark_launching_software_features" target="_blank" rel="external">Dark Lauches</a><br>简单说，就是开发新功能是要能使之方便地开启／关闭，可以很好应对突发事故。</p>
+</li>
+</ul>
+</li>
+<li><p>统一的度量标准</p>
+<ul>
+<li>开发人员可以看到运维情况（CPU/网络等情况）</li>
+</ul>
+</li>
+<li><p>即时聊天工具／机器人</p>
+<ul>
+<li>远程办公<ul>
+<li>开发／运维／机器人可以进行有情景地沟通，更好传达信息</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="文化">文化</h2><ul>
+<li>不要有偏见</li>
+<li>尊重他人的工作／观点／技能</li>
+<li>别隐藏东西</li>
+</ul>
+<h4 id="开发对运维说对代码的影响：">开发对运维说对代码的影响：</h4><ul>
+<li>什么标注（CPU/网络…）会更改，怎么改？</li>
+<li>风险是什么？</li>
+<li>事情变糟糕的迹象时啥？</li>
+<li>突发事件时啥？</li>
+</ul>
+<h2 id="信任">信任</h2><ul>
+<li>运维应该信任开发，邀其讨论需求</li>
+<li>开发应该信任运维，与之讨论基础变更</li>
+<li>每个人都应该相信其他人都在为工作努力</li>
+</ul>
+<h2 id="正确面对失败">正确面对失败</h2><blockquote>
+<p>如果你认为你可以避免失败，你就失去了锻炼应对失败的能力。</p>
+</blockquote>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/流程/">流程</a><a href="/tags/笔记/">笔记</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/01/13/开启前端探究之路/" title="开启前端探究之路" itemprop="url">开启前端探究之路</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Charly Zhang" target="_blank" itemprop="author">Charly Zhang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-13T11:15:09.000Z" itemprop="datePublished"> 發表於 2016-01-13</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>我先前有一些前端接触，<code>html/css/js</code>语言基础具备，也接触过<code>Node.js</code> /<code>AnjularJS</code>,不过因为从来没系统地学习过，前端技术丰富且更新快，我自己感觉一直游离在专业前端开发之外。现在，打算好好学习一下前端技术。</p>
+<p>##原则</p>
+<ol>
+<li>选择活跃度最大／最贴近工作需求的技术入手；</li>
+<li>某阶段内只专注学习一门技术，其他相关技术按需了解；</li>
+<li>快速开发，不断迭代项目；</li>
+</ol>
+<p>##React学习<br>学习<a href="http://www.infoq.com/cn/articles/react-art-of-simplity" target="_blank" rel="external"><strong>王沛老师的React专栏文章</strong></a>，遇到不明白的自己搜索，很多知识可以从<a href="http://www.ruanyifeng.com/blog/" target="_blank" rel="external"><strong>阮一峰的网络日志</strong></a>上找到。</p>
+<p>###一 React的设计哲学 - 简单之</p>
+<ol>
+<li>React是面向MVC中的View的框架；</li>
+<li>基于<em>Virtual DOM</em>和<em>DOM Diff</em>技术，可以实现浏览器端的“全页面刷新”；</li>
+<li>简化的组件模型：所谓组件，其实就是状态机器；</li>
+</ol>
+<p>###二 React开发神器Webpack</p>
+<ol>
+<li>对项目中的静态资源进行统一管理，为产品的最终发布提供最优的打包部署方案；</li>
+<li>同时支持CommonJS和AMD模块（对于新项目，推荐直接使用CommonJS）；</li>
+<li><a href="http://www.ruanyifeng.com/blog/2013/01/javascript_source_map.html" target="_blank" rel="external"><strong><em>source map</em></strong></a>:就是一个信息文件，里面储存着位置信息。也就是说，转换后的代码的每一个位置，所对应的转换前的位置；</li>
+<li>模块加载器（Loaders）在一定程度上可以代替<a href="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/CSS_Image_Sprites" target="_blank" rel="external"><strong><em>Css Sprites</em></strong></a>（用一张图片代替多张图片来节省开销和减少http请求）</li>
+<li><a href="https://github.com/gaearon/react-hot-loader" target="_blank" rel="external"><strong><em>react-hot-loader</em></strong></a>：轻松实现React组件的热替换；</li>
+<li>打包成多个资源文件两个目的：<ul>
+<li>将多个页面的公用模块独立打包，从而可以利用浏览器缓存机制来提高页面加载效率；</li>
+<li>减少页面初次加载时间，只有当某功能被用到时，才去动态的加载；</li>
+</ul>
+</li>
+<li><a href="https://github.com/supnate/react-tab-selector" target="_blank" rel="external">栗子项目</a>    </li>
+</ol>
+<p>###三 理解JSX和组件</p>
+<ol>
+<li><strong>React模拟事件系统</strong>：React并不会真正的绑定事件到每一个具体的元素上，而是采用事件代理的模式：在根节点document上为每种事件添加唯一的Listener，然后通过事件的target找到真实的触发元素；</li>
+<li><strong>在JSX中使用样式</strong>：通过style属性来定义，但和真实DOM不同的是，属性值不能是字符串而必须为对象；</li>
+<li>基本上属性名的转换规范就是将其写成驼峰写法；</li>
+<li>对于自定义组件，唯一必须实现的方法就是<code>render()</code>，除此之外，还有一些方法会在组件生命周期中被调用，如下图所示:<br><img src="../img/调用函数.png" alt="调用函数"><ul>
+<li><strong>componentDidMount</strong>: 在组件第一次render之后调用，这时组件对应的DOM节点已被加入到浏览器。在这个方法里可以去实现一些初始化逻辑；</li>
+<li><strong>componentWillUnmount</strong>: 在DOM节点移除之后被调用，这里可以做一些相关的清理工作；</li>
+<li><strong>shouldComponentUpdate</strong>: 这是一个和性能非常相关的方法，在每一次render方法之前被调用。它提供了一个机会让你决定是否要对组件进行实际的render；</li>
+</ul>
+</li>
+</ol>
+<p>###四 虚拟DOM Diff算法解析</p>
+<ol>
+<li>对于列表节点提供唯一的key属性可以帮助React定位到正确的节点进行比较，从而大幅减少DOM操作次数，提高了性能;</li>
+</ol>
+<p>###五 使用Flux搭建React应用程序架构</p>
+<ol>
+<li>单向数据流<br> <img src="../img/单向数据流.png" alt="单向数据流"></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign" target="_blank" rel="external"><code>Object.assign()</code></a> 复制对象所有可枚举的属性到目标。</li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Web/">Web</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/01/06/UIFileSharingEnabled开启而App仍然无法共享文件/" title="UIFileSharingEnabled开启而App仍然无法共享文件" itemprop="url">UIFileSharingEnabled开启而App仍然无法共享文件</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Charly Zhang" target="_blank" itemprop="author">Charly Zhang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-06T09:25:30.000Z" itemprop="datePublished"> 發表於 2016-01-06</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="问题">问题</h2><p>明明在plist中打开了<em>UIFileSharingEnabled</em>，可连接上<strong>iTunes</strong>后依然无法跟app共享文件。</p>
+<h2 id="解决">解决</h2><p>搜到<a href="http://stackoverflow.com/questions/4546334/uifilesharingenabled-has-no-effect/4546581#4546581" target="_blank" rel="external"><strong>stackoverflow</strong></a>上的答案，在plist中添加<em>CFBundleDisplayName</em>解决问题。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/01/06/获取UIImage中的图像数据/" title="获取UIImage中的图像数据" itemprop="url">获取UIImage中的图像数据</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Charly Zhang" target="_blank" itemprop="author">Charly Zhang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-06T08:28:19.000Z" itemprop="datePublished"> 發表於 2016-01-06</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>由于需要将UIImage转化成OpenGL中的纹理，先得获取其中的图像数据。首先在网上看到一段代码，一开始还挺好用，利用<code>CFDataGetBytePtr</code>来获取：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CGDataProviderRef inProvider = CGImageGetDataProvider(img);&#10;CFDataRef inBitmapData = CGDataProviderCopyData(inProvider);&#10;   &#10;size_t width = CGImageGetWidth(img);&#10;size_t height = CGImageGetHeight(img);&#10;&#10;/// &#10;CZImage *retImg = new CZImage(width,height,RGBA_BYTE,CFDataGetBytePtr(inBitmapData));</span><br></pre></td></tr></table></figure>
+<p>后来考虑到图片需要适应设备的屏幕，利用<a href="https://github.com/AliSoftware/UIImage-Resize" target="_blank" rel="external"><strong>UIImage-Resize</strong></a>将图片先缩放到合适大小，然后再利用以上代码时，图片显示就出问题了。</p>
+<p><a href="https://developer.apple.com/library/ios/qa/qa1509/_index.html" target="_blank" rel="external"><em>IOS Developer Library</em></a>说CGImage里面的数据不太靠谱，最好将图片重绘一遍才行。于是我将代码改为如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">size_t width = CGImageGetWidth(img);&#10;size_t height = CGImageGetHeight(img);&#10;&#10;size_t rowByteSize = width *  4;&#10;unsigned char *data = new unsigned char[height * rowByteSize];&#10;&#10;CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceRGB();&#10;CGContextRef context = CGBitmapContextCreate(data, width, height, 8, rowByteSize,&#10;                                             colorSpaceRef,&#10;                                             kCGImageAlphaPremultipliedLast);&#10;CGContextSetBlendMode(context, kCGBlendModeCopy);&#10;CGContextDrawImage(context, CGRectMake(0.0, 0.0, width, height), img);&#10;CGContextRelease(context);&#10;&#10;CGColorSpaceRelease(colorSpaceRef);&#10;CZImage *retImg = new CZImage((int)width,(int)height,RGBA_BYTE,data);&#10;delete [] data;</span><br></pre></td></tr></table></figure>
+<p>这样获取的数据是没有问题了。对比缩放UIImage后两种方法获得的数据，发现第一种方法得到的数据在每一行多了若干个空数据，rgba全为0。这样就造成了图片显示不正确。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/09/24/IB-Storyboard中自定义子view上的控件如何与代码连接/" title="IB/Storyboard中自定义子View上的控件如何与代码连接" itemprop="url">IB/Storyboard中自定义子View上的控件如何与代码连接</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Charly Zhang" target="_blank" itemprop="author">Charly Zhang</a>
+		
+  <p class="article-time">
+    <time datetime="2015-09-24T02:53:57.000Z" itemprop="datePublished"> 發表於 2015-09-24</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>题目说的貌似有点拗口。平时将IB/Storyboard中的控件与代码相连，都可以通过按住    <code>control</code>键拖动控件到代码的连线即可。可当控件所在的自定义视图是当前ViewController.View的子view时，是没法通过这个方法连接的。</p>
+<h2 id="场景">场景</h2><p>在IB/Storyboard中，添加ViewController.View的子view（<strong>图2中的紫色视图</strong>），并将其设置为自定义的UIView子类customView：<br><img src="/img/customView settting.png" alt="自定义视图的设置"><br>按照常规方法无法连接：<br><img src="/img/cannot wire to code.png" alt="控件无法和代码连接上"></p>
+<h2 id="解决方法">解决方法</h2><ol>
+<li><p>在自定义子View的代码中手动添加控件代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> testLabel: <span class="type">UILabel</span>!</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>从代码前出现圆点拖动到IB/Storyboard上的label控件上：<br><img src="/img/drag from dot.png" alt="从代码前圆点拖动到控件"></p>
+</li>
+</ol>
+<blockquote>
+<p>参考引用：<a href="http://stackoverflow.com/questions/16620130/cant-wire-to-subview-in-ib/16622808#16622808" target="_blank" rel="external">Can’t Wire to Subview in IB</a></p>
+</blockquote>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/界面/">界面</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/08/27/Swift中的as!操作符/" title="Swift中的as!操作符" itemprop="url">Swift中的as!操作符</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Charly Zhang" target="_blank" itemprop="author">Charly Zhang</a>
+		
+  <p class="article-time">
+    <time datetime="2015-08-27T10:40:02.000Z" itemprop="datePublished"> 發表於 2015-08-27</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>刚开始学习Swift，下载了他人写的项目，用xcode打开后都会提示错误。将代码中的一些<code>as</code>修改为<code>as!</code>就没问题了。在网上找了下原因，发现了这篇文章—— <a href="https://developer.apple.com/swift/blog/?id=23" target="_blank" rel="external"><strong><em>The as! Operator</em></strong></a>，翻译如下：</p>
+<h2 id="as!_操作符">as! 操作符</h2><p>在Swift 1.2以前，操作符<code>as</code>根据表达式的类型可以用来执行两种不同的转换：</p>
+<ul>
+<li><strong>Guaranteed conversion</strong>: Swift编译器保证一种类型的值转换为另外一种类型。例如，<em>向上转换</em>（从一种类型转换为其父类型）或者<em>指定表达式的类型</em>（<code>1 as Float</code>）.</li>
+<li><strong>Forced conversion</strong>: Swift编译器不保证这种强制将一种类型转换为其他类型的安全性，其可能导致运行时问题。例如，<em>向下转换</em>（从一种类型转换为其子类型）.</li>
+</ul>
+<p>Swift 1.2 从概念上将<strong>Guaranteed conversion</strong>和<strong>Forced conversion</strong>分成两种不同的操作符。    <strong>Guaranteed conversion</strong>仍然用<code>as</code>操作符，而<strong>Forced conversion</strong>则用<code>as!</code>操作符执行。感叹号<code>!</code>表明这种转换可能会失败，这样你看一眼就知道哪种代码会导致程序奔溃。</p>
+<p>下面用例子展示其区别:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class Animal &#123;&#125;&#10;class Dog: Animal &#123;&#125;&#10;    &#10;let a: Animal = Dog()&#10;a as Dog&#9;&#9;// now raises the error:  &#34;&#39;Animal is not convertible to &#39;Dog&#39;;&#10;&#9;&#9;&#9;&#9;// ... did you mean to use &#39;as!&#39; to force downcast?&#34;&#10;&#10;a as! Dog&#9;&#9;// forced downcast is allowed&#10;&#10;let d = Dog()&#10;d as Animal&#9;&#9;// upcast succeeds</span><br></pre></td></tr></table></figure>
+<p>注意将表达式后缀符<code>!</code>和<code>?</code>与转换符<code>as!</code>和<code>as?</code>做类比：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class Animal &#123;&#125;&#10;&#10;class Cat: Animal &#123;&#125;&#10;&#10;class Dog: Animal &#123;&#10;&#9;var name = &#34;Spot&#34;&#10;&#125;&#10;&#10;let dog: Dog? = nil&#10;dog?.name&#9;&#9;// evaluates to nil&#10;dog!.name&#9;&#9;// triggers a runtime error&#10;&#10;let animal: Animal = Cat()&#10;animal as? Dog&#9;// evaluates to nil&#10;animal as! Dog&#9;// triggers a runtime error</span><br></pre></td></tr></table></figure>
+<p>记住Swift中这些操作符模式的最简单方法是：<code>!</code>表示“这可能有问题”，而<code>?</code>表示“这可能为空”。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Swift/">Swift</a><a href="/tags/iOS/">iOS</a><a href="/tags/翻译/">翻译</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/08/24/利用UIView上手势控制OpenGL的绘制/" title="利用UIView上手势控制OpenGL的绘制" itemprop="url">利用UIView上手势控制OpenGL的绘制</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Charly Zhang" target="_blank" itemprop="author">Charly Zhang</a>
+		
+  <p class="article-time">
+    <time datetime="2015-08-24T10:08:57.000Z" itemprop="datePublished"> 發表於 2015-08-24</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>先前封装了一个C++的跨平台画刷库，底层绘制部分用<strong>OpenGL</strong>实现。现在想将该库作为内核开发iOS上的应用，却在坐标系转换上出现了点麻烦。这里将问题和解决方式做下记录。</p>
+<h3 id="场景">场景</h3><p>获取iOS设备上相册里的图片，在平移／缩放／旋转等编辑操作后，调用内核绘制图片，保证视觉上其显示效果（图片位置和图片内容）不改变：</p>
+<ul>
+<li>在<code>图片编辑</code>时，UIView接受手势，用<strong>UIKit</strong>实时展现图片的变换状态；</li>
+<li>在<code>编辑完成</code>时，将图片和变换矩阵传入内核，利用<strong>OpenGL</strong>绘制最终状态。</li>
+</ul>
+<h3 id="问题">问题</h3><p><strong>UIKit</strong>和<strong>OpenGL</strong>的坐标系不相同：</p>
+<ul>
+<li><strong>UIKit</strong>的坐标系：以左上角为原点，X轴向右，Y轴向下（右图）；</li>
+<li><strong>OpenGL</strong>的坐标系：以左下角为原点，X轴向右，Y轴向上（左图）；<br><img src="/img/coordinate_systems.png" alt="图片来源于网络"></li>
+</ul>
+<h3 id="解决方案">解决方案</h3><p>在<code>图片编辑</code>过程中，响应手势并通过图片的<em>center</em>和<em>transform</em>动态更新显示；同时将所有图片的变换累积到一个变换矩阵<em>imageTransform</em>中；在<code>编辑完成</code>时内核利用<em>imageTransform</em>将图片正确绘制。需要注意的是:</p>
+<blockquote>
+<p><em>center</em>和<em>transform</em>是<strong>UIKit</strong>坐标系，<em>imageTransform</em>是<strong>OpenGL</strong>坐标系。</p>
+</blockquote>
+<h4 id="1-初始化">1.初始化</h4><p>在进入图片编辑模块时，初始化<em>imageTransform</em><br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self.imageTransform = CGAffineTransformIdentity;</span><br></pre></td></tr></table></figure></p>
+<h4 id="2-平移">2.平移</h4><p>响应pan手势。由于两个坐标系的Y轴方向相反，所以<em>imageTransform</em>累积平移变换时，需要<strong><em>将Y轴方向变化量取反</em></strong>：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-(void)panImage:(UIPanGestureRecognizer*)pan &#123;&#10;&#9;if (pan.state == UIGestureRecognizerStateChanged) &#123;&#10;  &#9;&#9;/// &#25913;&#21464;&#22270;&#29255;&#26174;&#31034;&#29366;&#24577;&#10;  &#9;&#9;CGPoint loc = [pan translationInView:self.view];&#10;  &#9;&#9;[pan setTranslation:CGPointZero inView:self.view];&#10;  &#9;&#9;self.imageView.center = CGPointMake(self.imageView.center.x+loc.x, self.imageView.center.y+loc.y);&#10;&#10;  &#9;&#9;/// &#32047;&#31215;&#24179;&#31227;&#30697;&#38453;&#10;  &#9;&#9;CGAffineTransform tX = CGAffineTransformIdentity;&#10;  &#9;&#9;tX = CGAffineTransformTranslate(tX, loc.x, -loc.y);&#10;  &#9;&#9;self.imageTransform = CGAffineTransformConcat(self.imageTransform, tX);&#10;  &#9;&#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-缩放">3.缩放</h4><p>UIView的缩放默认是以其中心点为固定点，所以<em>imageTransform</em>累积缩放变换时，需要<strong><em>先将图片移动到原点位置，进行缩放后再恢复</em></strong>：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-(void)pinchImage:(UIPinchGestureRecognizer*)pinch&#123;    &#10;    if (pinch.state == UIGestureRecognizerStateChanged) &#123;&#10;&#9;&#9;/// &#25913;&#21464;&#22270;&#29255;&#26174;&#31034;&#29366;&#24577;&#10;        self.imageView.transform = CGAffineTransformScale(self.imageView.transform, pinch.scale, pinch.scale);&#10;        &#9;&#10;    &#9;/// &#32047;&#31215;&#24179;&#31227;&#30697;&#38453;&#10;    &#9;CGPoint pivot = self.imageView.center;&#10;        pivot.y = self.view.bounds.size.height - pivot.y;&#10;        CGAffineTransform tX = CGAffineTransformIdentity; &#10;        tX = CGAffineTransformIdentity;&#10;        tX = CGAffineTransformTranslate(tX, pivot.x, pivot.y);&#10;        tX = CGAffineTransformScale(tX, pinch.scale, pinch.scale);&#10;        tX = CGAffineTransformTranslate(tX, -pivot.x, -pivot.y)&#10;        self.imageTransform = CGAffineTransformConcat(self.imageTransform, tX);&#10; &#10; &#9;&#9;/// &#20805;&#20540;&#32553;&#25918;&#22240;&#23376;&#10;        pinch.scale = 1;&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="4-旋转">4.旋转</h4><p>在UIKit的坐标系中，由X轴正方向朝Y轴正方向旋转<strong>n</strong>弧度(<em>视觉上是逆时针</em>)，相当于在OpenGL坐标系中由X轴正方向朝Y轴正方向旋转<strong>PI-n</strong>弧度(<em>视觉上是顺时针</em>)。此时得到的图片只是旋转角度正确了，最后还需要对图片进行<strong>相对于图片中心的翻转</strong>才能得到一样的图片内容。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-(void)rotateImage:(UIRotationGestureRecognizer*)rotate&#123;    &#10;    if (rotate == UIGestureRecognizerStateChanged) &#123;&#10;        /// &#25913;&#21464;&#22270;&#29255;&#26174;&#31034;&#29366;&#24577;&#10;        CGFloat angle = rotate.rotation;&#10;        self.imageView.transform = CGAffineTransformRotate(self.imageView.transform, angle);&#10;        &#10;        /// &#32047;&#31215;&#24179;&#31227;&#30697;&#38453;&#10;        CGPoint pivot = self.imageView.center;&#10;        pivot.y = self.view.bounds.size.height - pivot.y;&#10;        CGAffineTransform tX = CGAffineTransformIdentity;&#10;        tX = CGAffineTransformTranslate(tX, pivot.x, pivot.y);&#10;        tX = CGAffineTransformRotate(tX, M_PI-angle);&#10;        tX = CGAffineTransformScale(tX, -1, -1);&#9;//&#20013;&#24515;&#32763;&#36716;&#10;        tX = CGAffineTransformTranslate(tX, -pivot.x, -pivot.y);&#10;        self.imageTransform = CGAffineTransformConcat(self.imageTransform, tX);&#10;        &#10;        // &#37325;&#32622;&#26059;&#36716;&#35282;&#24230;&#10;        rotate.rotation = 0;  &#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/08/23/试着用hexo写一篇博客/" title="试着用hexo写一篇博客" itemprop="url">试着用hexo写一篇博客</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Charly Zhang" target="_blank" itemprop="author">Charly Zhang</a>
+		
+  <p class="article-time">
+    <time datetime="2015-08-23T15:43:23.000Z" itemprop="datePublished"> 發表於 2015-08-23</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <ul>
+<li>突然兴致大发地想自己整个博客，用来纪录工作上的成长和收获。于是，我就花了些时间学着用<code>Hexo</code>和<code>GitHub Pages</code>搭起了这个。</li>
+<li>很早就有想法写博客，也一直因为各种原因没做好。这次不想那么多了，能写多少算多少，能写成怎样算怎样。不付诸行动的话，再美好的憧憬都是扯淡。</li>
+<li>目前的博客就是采用最简单的模版，所有的博文也暂时不进行分类。不过内容主要都是工作上的，大概分为：<ul>
+<li>开发技术</li>
+<li>项目管理</li>
+<li>工作感悟</li>
+<li>其他随笔</li>
+</ul>
+</li>
+<li>这次兴致大发的起因是想将调试了几天代码取得的一点收获纪录下来的，结果现在还没整理好。我先随便写这么点，试试<code>Hexo</code>，也熟悉一下<code>Markdown</code>。</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/随笔/">随笔</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+
+  <nav id="page-nav" class="clearfix">
+    <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
+</div>
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/iOS/" title="iOS">iOS<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/软件设计/" title="软件设计">软件设计<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Android/" title="Android">Android<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/随笔/" title="随笔">随笔<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/流程/" title="流程">流程<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Web/" title="Web">Web<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Swift/" title="Swift">Swift<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/翻译/" title="翻译">翻译<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mac/" title="Mac">Mac<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/界面/" title="界面">界面<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Charly Zhang in Founder. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/CharlyZhang" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Charly Zhang">Charly Zhang</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+ </html>
