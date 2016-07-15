@@ -4,26 +4,31 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Hello World | CharlyZhang&#39; Blog</title>
+    <title>Vuforia在iOS上的再封装 | CharlyZhang&#39; Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Charly Zhang">
     
 
     
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+    <meta name="description" content="之前用Vuforia做了一些Demo，主要是用Unity实现的。现在有需求要将Vuforia集成到已有的iOS客户端中。事实上Vuforia提供了iOS上的SDK，不过要让客户端同事去集成并实现需求的功能还是有些麻烦的，于是我在官方提供的iOS SDK上又封装了一次，加入了先前做的模型导入和交互的相关工作（可以参考Application3D），形成了更加简单的可配置的静态库。
+主要功能
+方便地实现">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://charlyzhang.github.io/2016/05/31/hello-world/index.html">
+<meta property="og:title" content="Vuforia在iOS上的再封装">
+<meta property="og:url" content="http://charlyzhang.github.io/2016/07/15/Vuforia在iOS上的再封装/index.html">
 <meta property="og:site_name" content="CharlyZhang' Blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:updated_time" content="2016-05-31T04:43:07.000Z">
+<meta property="og:description" content="之前用Vuforia做了一些Demo，主要是用Unity实现的。现在有需求要将Vuforia集成到已有的iOS客户端中。事实上Vuforia提供了iOS上的SDK，不过要让客户端同事去集成并实现需求的功能还是有些麻烦的，于是我在官方提供的iOS SDK上又封装了一次，加入了先前做的模型导入和交互的相关工作（可以参考Application3D），形成了更加简单的可配置的静态库。
+主要功能
+方便地实现">
+<meta property="og:image" content="https://static.oschina.net/uploads/img/201607/15163745_Vn26.png">
+<meta property="og:image" content="https://static.oschina.net/uploads/img/201607/15163903_HiO4.jpg">
+<meta property="og:updated_time" content="2016-07-15T08:56:55.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="Vuforia在iOS上的再封装">
+<meta name="twitter:description" content="之前用Vuforia做了一些Demo，主要是用Unity实现的。现在有需求要将Vuforia集成到已有的iOS客户端中。事实上Vuforia提供了iOS上的SDK，不过要让客户端同事去集成并实现需求的功能还是有些麻烦的，于是我在官方提供的iOS SDK上又封装了一次，加入了先前做的模型导入和交互的相关工作（可以参考Application3D），形成了更加简单的可配置的静态库。
+主要功能
+方便地实现">
 
     
     <link rel="alternative" href="/atom.xml" title="CharlyZhang&#39; Blog" type="application/atom+xml">
@@ -83,14 +88,14 @@ Quick">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/05/31/hello-world/" title="Hello World" itemprop="url">Hello World</a>
+      <a href="/2016/07/15/Vuforia在iOS上的再封装/" title="Vuforia在iOS上的再封装" itemprop="url">Vuforia在iOS上的再封装</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Charly Zhang" target="_blank" itemprop="author">Charly Zhang</a>
 		
   <p class="article-time">
-    <time datetime="2016-05-31T04:43:07.000Z" itemprop="datePublished"> 發表於 2016-05-31</time>
+    <time datetime="2016-07-15T07:31:15.000Z" itemprop="datePublished"> 發表於 2016-07-15</time>
     
   </p>
 </header>
@@ -99,24 +104,62 @@ Quick">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目錄</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick_Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create_a_new_post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run_server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate_static_files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy_to_remote_sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#主要功能"><span class="toc-number">1.</span> <span class="toc-text">主要功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用步骤"><span class="toc-number">2.</span> <span class="toc-text">使用步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#效果图"><span class="toc-number">3.</span> <span class="toc-text">效果图</span></a></li></ol>
 		
 		</div>
 		
-		<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+		<p>之前用Vuforia做了一些Demo，主要是用Unity实现的。现在有需求要将Vuforia集成到已有的iOS客户端中。事实上<strong>Vuforia</strong>提供了iOS上的<a href="https://developer.vuforia.com/downloads/sdk" target="_blank" rel="external">SDK</a>，不过要让客户端同事去集成并实现需求的功能还是有些麻烦的，于是我在官方提供的iOS SDK上又封装了一次，加入了先前做的模型导入和交互的相关工作（可以参考<a href="https://github.com/CharlyZhang/Application3D" target="_blank" rel="external">Application3D</a>），形成了更加简单的可配置的静态库。</p>
+<h2 id="主要功能">主要功能</h2><ol>
+<li>方便地实现基于Vuforia的ImageTarget识别；</li>
+<li>支持Obj格式模型导入；</li>
+<li>模型的简单交互（旋转，缩放，平移）；</li>
+<li>支持模型和识别datasets的配置；</li>
+</ol>
+<h2 id="使用步骤">使用步骤</h2><ol>
+<li>下载或克隆<a href="https://github.com/CharlyZhang/Vuforia-iOS-Lib" target="_blank" rel="external">Vuforia-iOS-Lib</a>；</li>
+<li>配置依赖库<br>有两种方式：<ul>
+<li>运行<code>install_deps.sh</code></li>
+<li>去Vuforia官方下载iOS SDK，并解压缩到<strong>external-deps</strong>文件夹；</li>
+</ul>
+</li>
+<li>运行<strong>ARDemo</strong>工程的<em>createARLib</em> target<br>在项目文件夹下会出现新文件夹<code>output</code>，里面包含新的静态库资源<br>主要包含：  <ul>
+<li><strong>ARResources.bundle</strong> : 包含绘制用的glsl文件；</li>
+<li><strong>include</strong>    : 包含头文件；</li>
+<li><strong>libAR.a</strong>    : 新封装的静态库；</li>
+</ul>
+</li>
+</ol>
+<p><img src="https://static.oschina.net/uploads/img/201607/15163745_Vn26.png" alt="生成的资源" title="生成的资源">  </p>
+<ol>
+<li>将以上三个资源添加到工程；</li>
+<li>配置相关参数初始化<code>ARViewController</code><br>配置：<br> {    <pre><code> AR_CONFIG_INIT_FLAG : <span class="tag">&lt;<span class="title">Vuforia</span> <span class="attribute">License</span> <span class="attribute">Key</span>&gt;</span>,
+AR_CONFIG_DATA_SETS : [<span class="tag">&lt;<span class="title">数据集</span>&gt;</span>...],
+AR_CONFIG_MODEL : [<span class="tag">&lt;<span class="title">模型</span>&gt;</span>...]
+</code></pre> }<br>数据集：<br> {<pre><code>AR_CONFIG_DATASET_NAME : <span class="tag">&lt;<span class="title">数据集名称</span>&gt;</span>,
+AR_CONFIG_DATASET_PATH : <span class="tag">&lt;<span class="title">数据集所在路径</span>&gt;</span>
+</code></pre> }<br>模型：<br> {<pre><code>AR_CONFIG_TARGET_NAME    : <span class="tag">&lt;<span class="title">识别体名称</span>&gt;</span>,
+AR_CONFIG_MODEL_PATH    : <span class="tag">&lt;<span class="title">模型路径</span>&gt;</span>
+</code></pre> }</li>
+</ol>
+<blockquote>
+<p>通过设置<code>ARViewController.activeDataSetName</code>可以激活载入的数据集。</p>
+</blockquote>
+<ol>
+<li>在<strong>AppDelegate.m</strong>的<code>applicationDidEnterBackground</code>中释放GL资源</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)applicationDidEnterBackground:(UIApplication *)application &#123;&#10;    if (self.glResourceHandler) &#123;&#10;        // Delete OpenGL resources (e.g. framebuffer) of the SampleApp AR View&#10;        [self.glResourceHandler freeOpenGLESResources];&#10;        [self.glResourceHandler finishOpenGLESCommands];&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<p>具体的配置可以参考<strong>TestARLib</strong>工程</p>
+<h2 id="效果图">效果图</h2><p><img src="https://static.oschina.net/uploads/img/201607/15163903_HiO4.jpg" alt="效果图" title="效果图"></p>
   
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/AR/">AR</a><a href="/tags/iOS/">iOS</a><a href="/tags/模型/">模型</a>
+  </div>
 
 </div>
 
@@ -124,7 +167,7 @@ Quick">
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://charlyzhang.github.io/2016/05/31/hello-world/" data-title="Hello World | CharlyZhang&#39; Blog" data-tsina="null" class="share clearfix">
+	  <div data-url="http://charlyzhang.github.io/2016/07/15/Vuforia在iOS上的再封装/" data-title="Vuforia在iOS上的再封装 | CharlyZhang&#39; Blog" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -137,19 +180,11 @@ Quick">
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/05/31/跨平台库的封装/" title="跨平台库的封装">
-  <strong>上一篇：</strong><br/>
-  <span>
-  跨平台库的封装</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/05/11/MacMail中删除服务器上邮件/"  title="Mac Mail中删除服务器上的邮件">
+<a href="/2016/05/31/iOS中连接混编C＋＋库的编译问题/"  title="iOS中连接混编C＋＋库的编译问题">
  <strong>下一篇：</strong><br/> 
- <span>Mac Mail中删除服务器上的邮件
+ <span>iOS中连接混编C＋＋库的编译问题
 </span>
 </a>
 </div>
@@ -164,7 +199,7 @@ Quick">
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目錄</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick_Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create_a_new_post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run_server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate_static_files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy_to_remote_sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#主要功能"><span class="toc-number">1.</span> <span class="toc-text">主要功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用步骤"><span class="toc-number">2.</span> <span class="toc-text">使用步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#效果图"><span class="toc-number">3.</span> <span class="toc-text">效果图</span></a></li></ol>
  
   </div>
 
@@ -180,11 +215,11 @@ Quick">
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/iOS/" title="iOS">iOS<sup>11</sup></a></li>
+				<li><a href="/tags/iOS/" title="iOS">iOS<sup>12</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/笔记/" title="笔记">笔记<sup>2</sup></a></li>
+				<li><a href="/tags/随笔/" title="随笔">随笔<sup>2</sup></a></li>
 			
 		
 			
@@ -196,7 +231,7 @@ Quick">
 			
 		
 			
-				<li><a href="/tags/随笔/" title="随笔">随笔<sup>2</sup></a></li>
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>2</sup></a></li>
 			
 		
 			
@@ -204,7 +239,15 @@ Quick">
 			
 		
 			
+				<li><a href="/tags/界面/" title="界面">界面<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/Web/" title="Web">Web<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/模型/" title="模型">模型<sup>1</sup></a></li>
 			
 		
 			
@@ -224,7 +267,7 @@ Quick">
 			
 		
 			
-				<li><a href="/tags/界面/" title="界面">界面<sup>1</sup></a></li>
+				<li><a href="/tags/AR/" title="AR">AR<sup>1</sup></a></li>
 			
 		
 		</ul>
