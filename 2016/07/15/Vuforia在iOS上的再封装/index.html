@@ -23,7 +23,7 @@
 方便地实现">
 <meta property="og:image" content="https://static.oschina.net/uploads/img/201607/15163745_Vn26.png">
 <meta property="og:image" content="https://static.oschina.net/uploads/img/201607/15163903_HiO4.jpg">
-<meta property="og:updated_time" content="2016-07-15T08:56:55.000Z">
+<meta property="og:updated_time" content="2016-07-16T03:21:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vuforia在iOS上的再封装">
 <meta name="twitter:description" content="之前用Vuforia做了一些Demo，主要是用Unity实现的。现在有需求要将Vuforia集成到已有的iOS客户端中。事实上Vuforia提供了iOS上的SDK，不过要让客户端同事去集成并实现需求的功能还是有些麻烦的，于是我在官方提供的iOS SDK上又封装了一次，加入了先前做的模型导入和交互的相关工作（可以参考Application3D），形成了更加简单的可配置的静态库。
@@ -117,9 +117,8 @@
 </ol>
 <h2 id="使用步骤">使用步骤</h2><ol>
 <li>下载或克隆<a href="https://github.com/CharlyZhang/Vuforia-iOS-Lib" target="_blank" rel="external">Vuforia-iOS-Lib</a>；</li>
-<li>配置依赖库<br>有两种方式：<ul>
-<li>运行<code>install_deps.sh</code></li>
-<li>去Vuforia官方下载iOS SDK，并解压缩到<strong>external-deps</strong>文件夹；</li>
+<li>配置依赖库  <ul>
+<li>去Vuforia官方下载<a href="https://developer.vuforia.com/downloads/sdk" target="_blank" rel="external">iOS SDK</a>，并解压缩到<strong>external-deps</strong>文件夹下；</li>
 </ul>
 </li>
 <li>运行<strong>ARDemo</strong>工程的<em>createARLib</em> target<br>在项目文件夹下会出现新文件夹<code>output</code>，里面包含新的静态库资源<br>主要包含：  <ul>
