@@ -4,32 +4,45 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Swift中的as!操作符 | CharlyZhang&#39; Blog</title>
+    <title>OC内存管理原则 | CharlyZhang&#39; Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Charly Zhang">
     
 
     
-    <meta name="description" content="刚开始学习Swift，下载了他人写的项目，用xcode打开后都会提示错误。将代码中的一些as修改为as!就没问题了。在网上找了下原因，发现了这篇文章—— The as! Operator，翻译如下：
-as! 操作符在Swift 1.2以前，操作符as根据表达式的类型可以用来执行两种不同的转换：
+    <meta name="description" content="在做Vuforia-iOS-Lib的Demo程序时，发现库中的Controller在MRR工程中会得不到释放。我看了Apple官网的“Advanced Memory Management Programming Guide”，收获不小，做点笔记。
+思考角度
+内存管理应该从对象所有权的角度思考，而不应该从引用计数的角度，去过分强调实现细节。
 
-Guaranteed conversion: Swift编译器保证一种类型的值转换为另外一种类型。例如">
+
+基本原则
+你拥有任何你创建的对象。  
+使用 “all">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Swift中的as!操作符">
-<meta property="og:url" content="http://charlyzhang.github.io/2015/08/27/Swift中的as!操作符/index.html">
+<meta property="og:title" content="OC内存管理原则">
+<meta property="og:url" content="http://charlyzhang.github.io/2016/07/25/OC内存管理原则/index.html">
 <meta property="og:site_name" content="CharlyZhang' Blog">
-<meta property="og:description" content="刚开始学习Swift，下载了他人写的项目，用xcode打开后都会提示错误。将代码中的一些as修改为as!就没问题了。在网上找了下原因，发现了这篇文章—— The as! Operator，翻译如下：
-as! 操作符在Swift 1.2以前，操作符as根据表达式的类型可以用来执行两种不同的转换：
+<meta property="og:description" content="在做Vuforia-iOS-Lib的Demo程序时，发现库中的Controller在MRR工程中会得不到释放。我看了Apple官网的“Advanced Memory Management Programming Guide”，收获不小，做点笔记。
+思考角度
+内存管理应该从对象所有权的角度思考，而不应该从引用计数的角度，去过分强调实现细节。
 
-Guaranteed conversion: Swift编译器保证一种类型的值转换为另外一种类型。例如">
-<meta property="og:updated_time" content="2016-01-23T04:00:00.000Z">
+
+基本原则
+你拥有任何你创建的对象。  
+使用 “all">
+<meta property="og:image" content="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/MemoryMgmt/Art/memory_management_2x.png">
+<meta property="og:updated_time" content="2016-07-25T06:31:21.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Swift中的as!操作符">
-<meta name="twitter:description" content="刚开始学习Swift，下载了他人写的项目，用xcode打开后都会提示错误。将代码中的一些as修改为as!就没问题了。在网上找了下原因，发现了这篇文章—— The as! Operator，翻译如下：
-as! 操作符在Swift 1.2以前，操作符as根据表达式的类型可以用来执行两种不同的转换：
+<meta name="twitter:title" content="OC内存管理原则">
+<meta name="twitter:description" content="在做Vuforia-iOS-Lib的Demo程序时，发现库中的Controller在MRR工程中会得不到释放。我看了Apple官网的“Advanced Memory Management Programming Guide”，收获不小，做点笔记。
+思考角度
+内存管理应该从对象所有权的角度思考，而不应该从引用计数的角度，去过分强调实现细节。
 
-Guaranteed conversion: Swift编译器保证一种类型的值转换为另外一种类型。例如">
+
+基本原则
+你拥有任何你创建的对象。  
+使用 “all">
 
     
     <link rel="alternative" href="/atom.xml" title="CharlyZhang&#39; Blog" type="application/atom+xml">
@@ -89,14 +102,14 @@ Guaranteed conversion: Swift编译器保证一种类型的值转换为另外一�
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/08/27/Swift中的as!操作符/" title="Swift中的as!操作符" itemprop="url">Swift中的as!操作符</a>
+      <a href="/2016/07/25/OC内存管理原则/" title="OC内存管理原则" itemprop="url">OC内存管理原则</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Charly Zhang" target="_blank" itemprop="author">Charly Zhang</a>
 		
   <p class="article-time">
-    <time datetime="2015-08-27T10:40:02.000Z" itemprop="datePublished"> 發表於 2015-08-27</time>
+    <time datetime="2016-07-25T02:06:35.000Z" itemprop="datePublished"> 發表於 2016-07-25</time>
     
   </p>
 </header>
@@ -105,22 +118,51 @@ Guaranteed conversion: Swift编译器保证一种类型的值转换为另外一�
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目錄</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#as!_操作符"><span class="toc-number">1.</span> <span class="toc-text">as! 操作符</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#思考角度"><span class="toc-number">1.</span> <span class="toc-text">思考角度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本原则"><span class="toc-number">2.</span> <span class="toc-text">基本原则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他原则"><span class="toc-number">3.</span> <span class="toc-text">其他原则</span></a></li></ol>
 		
 		</div>
 		
-		<p>刚开始学习Swift，下载了他人写的项目，用xcode打开后都会提示错误。将代码中的一些<code>as</code>修改为<code>as!</code>就没问题了。在网上找了下原因，发现了这篇文章—— <a href="https://developer.apple.com/swift/blog/?id=23" target="_blank" rel="external"><strong><em>The as! Operator</em></strong></a>，翻译如下：</p>
-<h2 id="as!_操作符">as! 操作符</h2><p>在Swift 1.2以前，操作符<code>as</code>根据表达式的类型可以用来执行两种不同的转换：</p>
-<ul>
-<li><strong>Guaranteed conversion</strong>: Swift编译器保证一种类型的值转换为另外一种类型。例如，<em>向上转换</em>（从一种类型转换为其父类型）或者<em>指定表达式的类型</em>（<code>1 as Float</code>）.</li>
-<li><strong>Forced conversion</strong>: Swift编译器不保证这种强制将一种类型转换为其他类型的安全性，其可能导致运行时问题。例如，<em>向下转换</em>（从一种类型转换为其子类型）.</li>
+		<p>在做<a href="https://github.com/CharlyZhang/Vuforia-iOS-Lib" target="_blank" rel="external">Vuforia-iOS-Lib</a>的Demo程序时，发现<em>库中的Controller在MRR工程中会得不到释放</em>。我看了Apple官网的<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/MemoryMgmt.html#//apple_ref/doc/uid/10000011i" target="_blank" rel="external">“Advanced Memory Management Programming Guide”</a>，收获不小，做点笔记。</p>
+<h2 id="思考角度">思考角度</h2><blockquote>
+<p>内存管理应该从对象所有权的角度思考，而不应该从引用计数的角度，去过分强调实现细节。</p>
+</blockquote>
+<p><img src="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/MemoryMgmt/Art/memory_management_2x.png" alt="图片来自官方文档"></p>
+<h2 id="基本原则">基本原则</h2><ol>
+<li>你拥有任何你创建的对象。  <ul>
+<li>使用 “alloc”, “new”, “copy”或者“mutableCopy” 创建的对象。</li>
 </ul>
-<p>Swift 1.2 从概念上将<strong>Guaranteed conversion</strong>和<strong>Forced conversion</strong>分成两种不同的操作符。    <strong>Guaranteed conversion</strong>仍然用<code>as</code>操作符，而<strong>Forced conversion</strong>则用<code>as!</code>操作符执行。感叹号<code>!</code>表明这种转换可能会失败，这样你看一眼就知道哪种代码会导致程序奔溃。</p>
-<p>下面用例子展示其区别:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class Animal &#123;&#125;&#10;class Dog: Animal &#123;&#125;&#10;    &#10;let a: Animal = Dog()&#10;a as Dog&#9;&#9;// now raises the error:  &#34;&#39;Animal is not convertible to &#39;Dog&#39;;&#10;&#9;&#9;&#9;&#9;// ... did you mean to use &#39;as!&#39; to force downcast?&#34;&#10;&#10;a as! Dog&#9;&#9;// forced downcast is allowed&#10;&#10;let d = Dog()&#10;d as Animal&#9;&#9;// upcast succeeds</span><br></pre></td></tr></table></figure>
-<p>注意将表达式后缀符<code>!</code>和<code>?</code>与转换符<code>as!</code>和<code>as?</code>做类比：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class Animal &#123;&#125;&#10;&#10;class Cat: Animal &#123;&#125;&#10;&#10;class Dog: Animal &#123;&#10;&#9;var name = &#34;Spot&#34;&#10;&#125;&#10;&#10;let dog: Dog? = nil&#10;dog?.name&#9;&#9;// evaluates to nil&#10;dog!.name&#9;&#9;// triggers a runtime error&#10;&#10;let animal: Animal = Cat()&#10;animal as? Dog&#9;// evaluates to nil&#10;animal as! Dog&#9;// triggers a runtime error</span><br></pre></td></tr></table></figure>
-<p>记住Swift中这些操作符模式的最简单方法是：<code>!</code>表示“这可能有问题”，而<code>?</code>表示“这可能为空”。</p>
+</li>
+<li>可以利用retain获取对象的所有权。<ul>
+<li>在<strong>存取方法</strong>或<strong>init</strong>中获取对象所有权作为自身属性；</li>
+<li>为避免其他操作将对象销毁而造成问题；</li>
+</ul>
+</li>
+<li>当不需要对象时，必须释放对其所有权。<ul>
+<li>利用“release” 或 “autorelease”</li>
+</ul>
+</li>
+<li>必须释放不该拥有的对象的所有权。</li>
+</ol>
+<h2 id="其他原则">其他原则</h2><ol>
+<li>你不拥有以<em>引用</em>形式返回的对象。<ul>
+<li>比如 <code>ClassName **</code>或<code>id *</code></li>
+</ul>
+</li>
+<li><p>用<strong>存取方法</strong>来管理内存。</p>
+<ul>
+<li>用来赋值给属性；</li>
+<li>不在<code>init</code>和<code>dealloc</code>中使用<strong>存取方法</strong></li>
+</ul>
+</li>
+<li><p>用弱引用来避免<strong>循环引用</strong>。</p>
+</li>
+<li>不用<code>dealloc</code>管理稀缺资源。<ul>
+<li>不应该在<code>dealloc</code>中管理<strong>文件描述符</strong>，<strong>网络连接</strong>或<strong>缓存</strong>等。</li>
+<li>因为程序的bug或突然中断会导致<code>dealloc</code>不能正常调用；</li>
+<li>因为<em>对象图</em>的析构顺序不确定。</li>
+</ul>
+</li>
+</ol>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -129,7 +171,7 @@ Guaranteed conversion: Swift编译器保证一种类型的值转换为另外一�
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Swift/">Swift</a><a href="/tags/iOS/">iOS</a><a href="/tags/翻译/">翻译</a>
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/笔记/">笔记</a>
   </div>
 
 </div>
@@ -138,7 +180,7 @@ Guaranteed conversion: Swift编译器保证一种类型的值转换为另外一�
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://charlyzhang.github.io/2015/08/27/Swift中的as!操作符/" data-title="Swift中的as!操作符 | CharlyZhang&#39; Blog" data-tsina="null" class="share clearfix">
+	  <div data-url="http://charlyzhang.github.io/2016/07/25/OC内存管理原则/" data-title="OC内存管理原则 | CharlyZhang&#39; Blog" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -151,19 +193,11 @@ Guaranteed conversion: Swift编译器保证一种类型的值转换为另外一�
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/09/24/IB-Storyboard中自定义子view上的控件如何与代码连接/" title="IB/Storyboard中自定义子View上的控件如何与代码连接">
-  <strong>上一篇：</strong><br/>
-  <span>
-  IB/Storyboard中自定义子View上的控件如何与代码连接</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/08/24/利用UIView上手势控制OpenGL的绘制/"  title="利用UIView上手势控制OpenGL的绘制">
+<a href="/2016/07/15/Vuforia在iOS上的再封装/"  title="Vuforia在iOS上的再封装">
  <strong>下一篇：</strong><br/> 
- <span>利用UIView上手势控制OpenGL的绘制
+ <span>Vuforia在iOS上的再封装
 </span>
 </a>
 </div>
@@ -178,7 +212,7 @@ Guaranteed conversion: Swift编译器保证一种类型的值转换为另外一�
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目錄</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#as!_操作符"><span class="toc-number">1.</span> <span class="toc-text">as! 操作符</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#思考角度"><span class="toc-number">1.</span> <span class="toc-text">思考角度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本原则"><span class="toc-number">2.</span> <span class="toc-text">基本原则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他原则"><span class="toc-number">3.</span> <span class="toc-text">其他原则</span></a></li></ol>
  
   </div>
 
