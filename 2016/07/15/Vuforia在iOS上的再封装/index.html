@@ -22,8 +22,8 @@
 主要功能
 方便地实现">
 <meta property="og:image" content="https://static.oschina.net/uploads/img/201607/15163745_Vn26.png">
-<meta property="og:image" content="https://static.oschina.net/uploads/img/201607/15163903_HiO4.jpg">
-<meta property="og:updated_time" content="2016-07-16T03:21:43.000Z">
+<meta property="og:image" content="https://github.com/CharlyZhang/Vuforia-iOS-Lib/raw/master/image/demo.jpg">
+<meta property="og:updated_time" content="2016-08-03T07:38:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vuforia在iOS上的再封装">
 <meta name="twitter:description" content="之前用Vuforia做了一些Demo，主要是用Unity实现的。现在有需求要将Vuforia集成到已有的iOS客户端中。事实上Vuforia提供了iOS上的SDK，不过要让客户端同事去集成并实现需求的功能还是有些麻烦的，于是我在官方提供的iOS SDK上又封装了一次，加入了先前做的模型导入和交互的相关工作（可以参考Application3D），形成了更加简单的可配置的静态库。
@@ -148,7 +148,7 @@ AR_CONFIG_MODEL_PATH    : <span class="tag">&lt;<span class="title">模型路径
 </ol>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)applicationDidEnterBackground:(UIApplication *)application &#123;&#10;    if (self.glResourceHandler) &#123;&#10;        // Delete OpenGL resources (e.g. framebuffer) of the SampleApp AR View&#10;        [self.glResourceHandler freeOpenGLESResources];&#10;        [self.glResourceHandler finishOpenGLESCommands];&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
 <p>具体的配置可以参考<strong>TestARLib</strong>工程</p>
-<h2 id="效果图">效果图</h2><p><img src="https://static.oschina.net/uploads/img/201607/15163903_HiO4.jpg" alt="效果图" title="效果图"></p>
+<h2 id="效果图">效果图</h2><p><img src="https://github.com/CharlyZhang/Vuforia-iOS-Lib/raw/master/image/demo.jpg" alt="效果图" title="效果图"></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -222,7 +222,7 @@ AR_CONFIG_MODEL_PATH    : <span class="tag">&lt;<span class="title">模型路径
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/iOS/" title="iOS">iOS<sup>13</sup></a></li>
+				<li><a href="/tags/iOS/" title="iOS">iOS<sup>14</sup></a></li>
 			
 		
 			

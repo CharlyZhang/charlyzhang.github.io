@@ -81,6 +81,101 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/01/23/一个iOS应用内购买模块的开发/" title="一个iOS应用内购买模块的开发" itemprop="url">一个iOS应用内购买模块的开发</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Charly Zhang" target="_blank" itemprop="author">Charly Zhang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-23T03:57:49.000Z" itemprop="datePublished"> 發表於 2016-01-23</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>了解了iOS应用内购买流程后，需要开发一个模块，将其集成到原有项目中。该模块实现虚拟币的应用内购买，能支持原生App调用和Web调用。需求就这样，我用了些功夫捣鼓出来了，将过程纪录一下。</p>
+<h2 id="模块设计">模块设计</h2><p>或许觉得功能不难，给我的需求就简单几句话。在编码之前我想弄清楚自己开发的模块是怎么样的，该怎么与外界交互。我要找到个工具将这点弄明白，于是想到画UML图。</p>
+<h3 id="UML活动图">UML活动图</h3><p>看<a href="http://www.cnblogs.com/ywqu/archive/2009/12/14/1624082.html" target="_blank" rel="external">UML建模之活动图介绍（Activity Diagram）</a>了解了一下，画活动图比较好，感觉这个大概能达到我的目的。于是画了如下两个图，分别表示IAP两个阶段发生的事：</p>
+<ul>
+<li><h4 id="请求商品信息">请求商品信息</h4><p><img src="../img/20160123-请求商品列表.png" alt="请求商品信息"></p>
+</li>
+<li><h4 id="购买商品">购买商品</h4><p><img src="../img/20160123-购买商品.png" alt="购买商品"></p>
+</li>
+</ul>
+<h4 id="简单介绍">简单介绍</h4><p>当时了解到的需求是只用提供Web调用的接口，参照<em>Android</em>的设计，我以为<strong>本模块只用负责逻辑处理部分，不涉及UI展示</strong>，所以设计了以上活动图，我的工作主要是<em>App</em>部分。后来需求改了。</p>
+<h3 id="需求改变">需求改变</h3><ul>
+<li><strong>本模块负责IAP所有事项，包括UI展示</strong> </li>
+<li><strong>本模块需要能被原生App调用</strong></li>
+<li><strong>考虑到虚拟币商品的固定性，简化购买过程</strong><ul>
+<li>虚拟币商品比较固定，展示商品时可以拿本地商品信息展示，而不用等到App Store返回商品信息</li>
+<li>将请求商品信息与购买商品合并到“确定支付”过程中</li>
+</ul>
+</li>
+</ul>
+<h3 id="UML时序图">UML时序图</h3><p>需求更改后活动图有变化，可第一版代码编写后，模块与外界的交互已经比较好理解，我就没再上新图了。我用另外一种图确定了模块内的设计。顺便学习一下<a href="http://www.cnblogs.com/ywqu/archive/2009/12/22/1629426.html" target="_blank" rel="external">时序图</a></p>
+<p><img src="../img/20160123-时序图.png" alt="IAP时序图"></p>
+<h4 id="简单介绍-1">简单介绍</h4><ul>
+<li><strong>调用者</strong><ul>
+<li><em>ViewController</em>：这里是App原生调用代码。考虑到易嵌入性，我这次放弃使用代理方式，而选择了<em>Block</em>作为反馈处理。但愿代码中没有出现<strong>Cycle Retain</strong>。</li>
+</ul>
+</li>
+<li><strong>IAP模块</strong><ul>
+<li><em>IAPViewController</em>：模块的主要处理类，负责与用户交互，及调用<em>IAPManager</em>与<em>IAPObserver</em> 与App Store进行交互；</li>
+<li><em>IAPManager</em>：负责处理请求商品信息；</li>
+<li><em>IAPObserver</em>：负责处理购买商品。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><em>IAPManager</em>和<em>IAPObserver</em>只将过程信息打成log，错误信息提示等与用户交互相关的处理通过<em>Block</em>交给<em>IAPViewController</em>。</p>
+</blockquote>
+<h2 id="Demo">Demo</h2><p><a href="https://github.com/CharlyZhang/iapTest" target="_blank" rel="external">iapTest</a></p>
+<h2 id="后续">后续</h2><ul>
+<li>UML图是利用在线工具<a href="https://www.processon.com/" target="_blank" rel="external">processon</a>画的，保存什么的还是很方便，不过功能不及<em>EA</em>等;</li>
+<li>设计与代码都在学习中，欢迎一起交流。</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/软件设计/">软件设计</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/01/18/iOS应用内购买/" title="iOS应用内购买App开发完整流程" itemprop="url">iOS应用内购买App开发完整流程</a>
   </h1>
   <p class="article-author">By
@@ -1049,80 +1144,6 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/08/24/利用UIView上手势控制OpenGL的绘制/" title="利用UIView上手势控制OpenGL的绘制" itemprop="url">利用UIView上手势控制OpenGL的绘制</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Charly Zhang" target="_blank" itemprop="author">Charly Zhang</a>
-		
-  <p class="article-time">
-    <time datetime="2015-08-24T10:08:57.000Z" itemprop="datePublished"> 發表於 2015-08-24</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>先前封装了一个C++的跨平台画刷库，底层绘制部分用<strong>OpenGL</strong>实现。现在想将该库作为内核开发iOS上的应用，却在坐标系转换上出现了点麻烦。这里将问题和解决方式做下记录。</p>
-<h3 id="场景">场景</h3><p>获取iOS设备上相册里的图片，在平移／缩放／旋转等编辑操作后，调用内核绘制图片，保证视觉上其显示效果（图片位置和图片内容）不改变：</p>
-<ul>
-<li>在<code>图片编辑</code>时，UIView接受手势，用<strong>UIKit</strong>实时展现图片的变换状态；</li>
-<li>在<code>编辑完成</code>时，将图片和变换矩阵传入内核，利用<strong>OpenGL</strong>绘制最终状态。</li>
-</ul>
-<h3 id="问题">问题</h3><p><strong>UIKit</strong>和<strong>OpenGL</strong>的坐标系不相同：</p>
-<ul>
-<li><strong>UIKit</strong>的坐标系：以左上角为原点，X轴向右，Y轴向下（右图）；</li>
-<li><strong>OpenGL</strong>的坐标系：以左下角为原点，X轴向右，Y轴向上（左图）；<br><img src="/img/coordinate_systems.png" alt="图片来源于网络"></li>
-</ul>
-<h3 id="解决方案">解决方案</h3><p>在<code>图片编辑</code>过程中，响应手势并通过图片的<em>center</em>和<em>transform</em>动态更新显示；同时将所有图片的变换累积到一个变换矩阵<em>imageTransform</em>中；在<code>编辑完成</code>时内核利用<em>imageTransform</em>将图片正确绘制。需要注意的是:</p>
-<blockquote>
-<p><em>center</em>和<em>transform</em>是<strong>UIKit</strong>坐标系，<em>imageTransform</em>是<strong>OpenGL</strong>坐标系。</p>
-</blockquote>
-<h4 id="1-初始化">1.初始化</h4><p>在进入图片编辑模块时，初始化<em>imageTransform</em><br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self.imageTransform = CGAffineTransformIdentity;</span><br></pre></td></tr></table></figure></p>
-<h4 id="2-平移">2.平移</h4><p>响应pan手势。由于两个坐标系的Y轴方向相反，所以<em>imageTransform</em>累积平移变换时，需要<strong><em>将Y轴方向变化量取反</em></strong>：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-(void)panImage:(UIPanGestureRecognizer*)pan &#123;&#10;&#9;if (pan.state == UIGestureRecognizerStateChanged) &#123;&#10;  &#9;&#9;/// &#25913;&#21464;&#22270;&#29255;&#26174;&#31034;&#29366;&#24577;&#10;  &#9;&#9;CGPoint loc = [pan translationInView:self.view];&#10;  &#9;&#9;[pan setTranslation:CGPointZero inView:self.view];&#10;  &#9;&#9;self.imageView.center = CGPointMake(self.imageView.center.x+loc.x, self.imageView.center.y+loc.y);&#10;&#10;  &#9;&#9;/// &#32047;&#31215;&#24179;&#31227;&#30697;&#38453;&#10;  &#9;&#9;CGAffineTransform tX = CGAffineTransformIdentity;&#10;  &#9;&#9;tX = CGAffineTransformTranslate(tX, loc.x, -loc.y);&#10;  &#9;&#9;self.imageTransform = CGAffineTransformConcat(self.imageTransform, tX);&#10;  &#9;&#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="3-缩放">3.缩放</h4><p>UIView的缩放默认是以其中心点为固定点，所以<em>imageTransform</em>累积缩放变换时，需要<strong><em>先将图片移动到原点位置，进行缩放后再恢复</em></strong>：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-(void)pinchImage:(UIPinchGestureRecognizer*)pinch&#123;    &#10;    if (pinch.state == UIGestureRecognizerStateChanged) &#123;&#10;&#9;&#9;/// &#25913;&#21464;&#22270;&#29255;&#26174;&#31034;&#29366;&#24577;&#10;        self.imageView.transform = CGAffineTransformScale(self.imageView.transform, pinch.scale, pinch.scale);&#10;        &#9;&#10;    &#9;/// &#32047;&#31215;&#24179;&#31227;&#30697;&#38453;&#10;    &#9;CGPoint pivot = self.imageView.center;&#10;        pivot.y = self.view.bounds.size.height - pivot.y;&#10;        CGAffineTransform tX = CGAffineTransformIdentity; &#10;        tX = CGAffineTransformIdentity;&#10;        tX = CGAffineTransformTranslate(tX, pivot.x, pivot.y);&#10;        tX = CGAffineTransformScale(tX, pinch.scale, pinch.scale);&#10;        tX = CGAffineTransformTranslate(tX, -pivot.x, -pivot.y)&#10;        self.imageTransform = CGAffineTransformConcat(self.imageTransform, tX);&#10; &#10; &#9;&#9;/// &#20805;&#20540;&#32553;&#25918;&#22240;&#23376;&#10;        pinch.scale = 1;&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="4-旋转">4.旋转</h4><p>在UIKit的坐标系中，由X轴正方向朝Y轴正方向旋转<strong>n</strong>弧度(<em>视觉上是逆时针</em>)，相当于在OpenGL坐标系中由X轴正方向朝Y轴正方向旋转<strong>PI-n</strong>弧度(<em>视觉上是顺时针</em>)。此时得到的图片只是旋转角度正确了，最后还需要对图片进行<strong>相对于图片中心的翻转</strong>才能得到一样的图片内容。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-(void)rotateImage:(UIRotationGestureRecognizer*)rotate&#123;    &#10;    if (rotate == UIGestureRecognizerStateChanged) &#123;&#10;        /// &#25913;&#21464;&#22270;&#29255;&#26174;&#31034;&#29366;&#24577;&#10;        CGFloat angle = rotate.rotation;&#10;        self.imageView.transform = CGAffineTransformRotate(self.imageView.transform, angle);&#10;        &#10;        /// &#32047;&#31215;&#24179;&#31227;&#30697;&#38453;&#10;        CGPoint pivot = self.imageView.center;&#10;        pivot.y = self.view.bounds.size.height - pivot.y;&#10;        CGAffineTransform tX = CGAffineTransformIdentity;&#10;        tX = CGAffineTransformTranslate(tX, pivot.x, pivot.y);&#10;        tX = CGAffineTransformRotate(tX, M_PI-angle);&#10;        tX = CGAffineTransformScale(tX, -1, -1);&#9;//&#20013;&#24515;&#32763;&#36716;&#10;        tX = CGAffineTransformTranslate(tX, -pivot.x, -pivot.y);&#10;        self.imageTransform = CGAffineTransformConcat(self.imageTransform, tX);&#10;        &#10;        // &#37325;&#32622;&#26059;&#36716;&#35282;&#24230;&#10;        rotate.rotation = 0;  &#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/iOS/">iOS</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
@@ -1143,7 +1164,7 @@
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/iOS/" title="iOS">iOS<sup>13</sup></a></li>
+				<li><a href="/tags/iOS/" title="iOS">iOS<sup>14</sup></a></li>
 			
 		
 			

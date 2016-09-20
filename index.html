@@ -81,6 +81,66 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/09/20/Can-s-sign-in-to-Appstore-This-action-could-not-be-completed/" title="Can&#39;s sign in to Appstore - This action could not be completed" itemprop="url">Can&#39;s sign in to Appstore - This action could not be completed</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Charly Zhang" target="_blank" itemprop="author">Charly Zhang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-09-20T01:17:33.000Z" itemprop="datePublished"> 發表於 2016-09-20</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>换了台Mac后无法登录Appstore，无论是在Xcode，iTunes还是App Store软件都无法登录，出现如下提示：</p>
+<blockquote>
+<p>Can’s sign in to Appstore - This action could not be completed</p>
+</blockquote>
+<p>在官网论坛找到问题所在，是<strong>共享文件夹权限出了问题</strong>，因为我是使用了一个新创建的管理员账号登陆的。在终端输入以下命令能解决问题：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p <span class="regexp">/Users/</span>Shared</span><br><span class="line">sudo chown <span class="string">root:</span>wheel <span class="regexp">/Users/</span>Shared</span><br><span class="line">sudo chmod -R <span class="number">1777</span> <span class="regexp">/Users/</span>Shared</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/07/25/OC内存管理原则/" title="OC内存管理原则" itemprop="url">OC内存管理原则</a>
   </h1>
   <p class="article-author">By
@@ -229,7 +289,7 @@ AR_CONFIG_MODEL_PATH    : <span class="tag">&lt;<span class="title">模型路径
 </ol>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)applicationDidEnterBackground:(UIApplication *)application &#123;&#10;    if (self.glResourceHandler) &#123;&#10;        // Delete OpenGL resources (e.g. framebuffer) of the SampleApp AR View&#10;        [self.glResourceHandler freeOpenGLESResources];&#10;        [self.glResourceHandler finishOpenGLESCommands];&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
 <p>具体的配置可以参考<strong>TestARLib</strong>工程</p>
-<h2 id="效果图">效果图</h2><p><img src="https://static.oschina.net/uploads/img/201607/15163903_HiO4.jpg" alt="效果图" title="效果图"></p>
+<h2 id="效果图">效果图</h2><p><img src="https://github.com/CharlyZhang/Vuforia-iOS-Lib/raw/master/image/demo.jpg" alt="效果图" title="效果图"></p>
 
         
         
@@ -856,101 +916,6 @@ Error:(41) undefined reference to `__android_log_print'</span>
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/01/23/一个iOS应用内购买模块的开发/" title="一个iOS应用内购买模块的开发" itemprop="url">一个iOS应用内购买模块的开发</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Charly Zhang" target="_blank" itemprop="author">Charly Zhang</a>
-		
-  <p class="article-time">
-    <time datetime="2016-01-23T03:57:49.000Z" itemprop="datePublished"> 發表於 2016-01-23</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>了解了iOS应用内购买流程后，需要开发一个模块，将其集成到原有项目中。该模块实现虚拟币的应用内购买，能支持原生App调用和Web调用。需求就这样，我用了些功夫捣鼓出来了，将过程纪录一下。</p>
-<h2 id="模块设计">模块设计</h2><p>或许觉得功能不难，给我的需求就简单几句话。在编码之前我想弄清楚自己开发的模块是怎么样的，该怎么与外界交互。我要找到个工具将这点弄明白，于是想到画UML图。</p>
-<h3 id="UML活动图">UML活动图</h3><p>看<a href="http://www.cnblogs.com/ywqu/archive/2009/12/14/1624082.html" target="_blank" rel="external">UML建模之活动图介绍（Activity Diagram）</a>了解了一下，画活动图比较好，感觉这个大概能达到我的目的。于是画了如下两个图，分别表示IAP两个阶段发生的事：</p>
-<ul>
-<li><h4 id="请求商品信息">请求商品信息</h4><p><img src="../img/20160123-请求商品列表.png" alt="请求商品信息"></p>
-</li>
-<li><h4 id="购买商品">购买商品</h4><p><img src="../img/20160123-购买商品.png" alt="购买商品"></p>
-</li>
-</ul>
-<h4 id="简单介绍">简单介绍</h4><p>当时了解到的需求是只用提供Web调用的接口，参照<em>Android</em>的设计，我以为<strong>本模块只用负责逻辑处理部分，不涉及UI展示</strong>，所以设计了以上活动图，我的工作主要是<em>App</em>部分。后来需求改了。</p>
-<h3 id="需求改变">需求改变</h3><ul>
-<li><strong>本模块负责IAP所有事项，包括UI展示</strong> </li>
-<li><strong>本模块需要能被原生App调用</strong></li>
-<li><strong>考虑到虚拟币商品的固定性，简化购买过程</strong><ul>
-<li>虚拟币商品比较固定，展示商品时可以拿本地商品信息展示，而不用等到App Store返回商品信息</li>
-<li>将请求商品信息与购买商品合并到“确定支付”过程中</li>
-</ul>
-</li>
-</ul>
-<h3 id="UML时序图">UML时序图</h3><p>需求更改后活动图有变化，可第一版代码编写后，模块与外界的交互已经比较好理解，我就没再上新图了。我用另外一种图确定了模块内的设计。顺便学习一下<a href="http://www.cnblogs.com/ywqu/archive/2009/12/22/1629426.html" target="_blank" rel="external">时序图</a></p>
-<p><img src="../img/20160123-时序图.png" alt="IAP时序图"></p>
-<h4 id="简单介绍-1">简单介绍</h4><ul>
-<li><strong>调用者</strong><ul>
-<li><em>ViewController</em>：这里是App原生调用代码。考虑到易嵌入性，我这次放弃使用代理方式，而选择了<em>Block</em>作为反馈处理。但愿代码中没有出现<strong>Cycle Retain</strong>。</li>
-</ul>
-</li>
-<li><strong>IAP模块</strong><ul>
-<li><em>IAPViewController</em>：模块的主要处理类，负责与用户交互，及调用<em>IAPManager</em>与<em>IAPObserver</em> 与App Store进行交互；</li>
-<li><em>IAPManager</em>：负责处理请求商品信息；</li>
-<li><em>IAPObserver</em>：负责处理购买商品。</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p><em>IAPManager</em>和<em>IAPObserver</em>只将过程信息打成log，错误信息提示等与用户交互相关的处理通过<em>Block</em>交给<em>IAPViewController</em>。</p>
-</blockquote>
-<h2 id="Demo">Demo</h2><p><a href="https://github.com/CharlyZhang/iapTest" target="_blank" rel="external">iapTest</a></p>
-<h2 id="后续">后续</h2><ul>
-<li>UML图是利用在线工具<a href="https://www.processon.com/" target="_blank" rel="external">processon</a>画的，保存什么的还是很方便，不过功能不及<em>EA</em>等;</li>
-<li>设计与代码都在学习中，欢迎一起交流。</li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/软件设计/">软件设计</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
@@ -971,7 +936,7 @@ Error:(41) undefined reference to `__android_log_print'</span>
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/iOS/" title="iOS">iOS<sup>13</sup></a></li>
+				<li><a href="/tags/iOS/" title="iOS">iOS<sup>14</sup></a></li>
 			
 		
 			
